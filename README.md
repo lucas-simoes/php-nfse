@@ -3,6 +3,8 @@
 
 *php-nfse* é um framework para geração dos RPS e comunicação das NFSe com as Prefeituras Municipais.
 
+*Este projeto é um fork do projeto original nfephp-org/sped-nfse <https://github.com/nfephp-org/sped-nfse> que foi descontinuado.*
+
 # NOTA IMPORTANTE - LEIA COM MUITA ATENÇÃO
 
 ### As prefeituras **mudam de modelo de NFSe e alteram seu layout livremente e até a forma de acesso aos webservices**, isso é um FATO !!

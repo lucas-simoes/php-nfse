@@ -4,7 +4,7 @@
     "description": "API para geração e comunicação da NFSe com as Prefeituras. Este é um fork do projeto nfephp-org/sped-nfse que foi descontinuado",
     "keywords": ["nfse", "sped", "nfephp"],
     "homepage": "https://github.com/lucas-simoes/php-nfse",
-    "license": ["Apache License 2.0"],
+    "license": ["Apache-2.0"],
     "authors": [
         {
             "name": "Roberto L. Machado",

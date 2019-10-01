@@ -1,0 +1,9 @@
+Santa_Maria RS
+IBGE: 4316907
+SIAF:
+Padrão: ISSNET (Abrasf 1.0 modificado)
+SOAP Version: 1.1 e/ou SOAP Version: 1.2
+URL Homologação: http://www.issnetonline.com.br/webserviceabrasf/homologacao/servicos.asmx
+URL Produção:
+xmlns: http://www.issnetonline.com.br/webservice/nfd
+Atenção com os XSD: nesse caso existe um prefixo "servico_" no nome e não tem sulfixos

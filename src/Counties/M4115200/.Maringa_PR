@@ -1,0 +1,8 @@
+Maringa PR
+IBGE: 411520
+SIAF: 7535
+Padrão: Abrasf v201
+SOAP Version: 1.2
+URL Homologação: https://isseteste.maringa.pr.gov.br/ws
+URL Produção: https://isse.maringa.pr.gov.br/
+xmlns: http://www.abrasf.org.br/nfse.xsd

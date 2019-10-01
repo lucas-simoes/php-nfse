@@ -1,0 +1,10 @@
+Goiania GO
+IBGE: 5208707
+SIAF: 9373
+Padrão: AMTEC (Abrasf 2.0 modificado)
+SOAP Version: 1.2
+URL Única: https://nfse.goiania.go.gov.br/ws/nfse.asmx
+xmlns: http://nfse.goiania.go.gov.br/xsd/nfse_gyn_v02.xsd
+
+ATENÇÃO: O Certificado Digital deve ser emitido para o CNPJ informado no Cadastro de Atividades Econômicas do Prestador da Prefeitura, NÃO sendo aceito Certificado emitido para CNPJ RAIZ
+Link: https://docs.google.com/document/d/1B6L11ZGv2iXMfxCtIJxgzLaDCyeF-tCJ82ELysnJaTs/edit?pli=1

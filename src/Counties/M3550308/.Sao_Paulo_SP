@@ -1,0 +1,5 @@
+Padrão: Prodam
+SOAP Version: 1.2
+IBGE: 3550308
+URL: https://nfe.prefeitura.sp.gov.br/ws/lotenfe.asmx
+xmlns: http://www.prefeitura.sp.gov.br/nfe

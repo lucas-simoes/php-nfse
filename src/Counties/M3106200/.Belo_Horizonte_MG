@@ -1,0 +1,8 @@
+Belo Horizonte MG
+IBGE: 3106200
+SIAF: 4123
+Padrão: BHHISS v100
+SOAP Version: 1.1
+URL Homologação: https://bhisshomologa.pbh.gov.br/bhiss-ws/nfse
+URL Produção: https://bhissdigital.pbh.gov.br/bhiss-ws/nfse
+xmlns: http://www.abrasf.org.br/nfse.xsd

@@ -1,0 +1,8 @@
+Porto Alegre RS
+IBGE: 4314902
+SIAF: 8801
+Padrão: BHHISS v100
+SOAP Version: 1.1
+URL Homologação: https://nfse-hom.procempa.com.br/bhiss-ws/nfse
+URL Produção: https://nfe.portoalegre.rs.gov.br/bhiss-ws/nfse
+xmlns: http://www.abrasf.org.br/nfse.xsd

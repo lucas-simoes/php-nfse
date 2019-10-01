@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RetornoEnvioLoteRPS xmlns="http://www.prefeitura.sp.gov.br/nfe" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Cabecalho xmlns="" Versao="1">
+        <Sucesso>true</Sucesso>
+        <InformacoesLote>
+            <NumeroLote>42686544</NumeroLote>
+            <InscricaoPrestador>39617106</InscricaoPrestador>
+            <CPFCNPJRemetente>
+                <CNPJ>99999998000228</CNPJ>
+            </CPFCNPJRemetente>
+            <DataEnvioLote>2015-01-26T15:42:44</DataEnvioLote>
+            <QtdNotasProcessadas>2</QtdNotasProcessadas>
+            <TempoProcessamento>1</TempoProcessamento>
+            <ValorTotalServicos>201</ValorTotalServicos>
+        </InformacoesLote>
+    </Cabecalho>
+    <ChaveNFeRPS xmlns="">
+        <ChaveNFe>
+            <InscricaoPrestador>39617106</InscricaoPrestador>
+            <NumeroNFe>3</NumeroNFe>
+            <CodigoVerificacao>2QFFXUMK</CodigoVerificacao>
+        </ChaveNFe>
+        <ChaveRPS>
+            <InscricaoPrestador>39617106</InscricaoPrestador>
+            <SerieRPS>BB</SerieRPS>
+            <NumeroRPS>4102</NumeroRPS>
+        </ChaveRPS>
+    </ChaveNFeRPS>
+    <ChaveNFeRPS xmlns="">
+        <ChaveNFe>
+            <InscricaoPrestador>39617106</InscricaoPrestador>
+            <NumeroNFe>4</NumeroNFe>
+            <CodigoVerificacao>G9TBE9PR</CodigoVerificacao>
+        </ChaveNFe>
+        <ChaveRPS>
+            <InscricaoPrestador>39617106</InscricaoPrestador>
+            <SerieRPS>BC</SerieRPS>
+            <NumeroRPS>4103</NumeroRPS>
+        </ChaveRPS>
+    </ChaveNFeRPS>
+</RetornoEnvioLoteRPS>

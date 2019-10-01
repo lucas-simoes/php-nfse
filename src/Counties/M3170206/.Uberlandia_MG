@@ -1,0 +1,18 @@
+Padrão: DSFNET
+Codigo Municipio IBGE: 3170206
+Codigo Cidade SIAFI: 5403
+SOAP Version: 1.1
+Signature Method: SHA1
+Using CData: true ??
+URL: http://udigital.uberlandia.mg.gov.br/WsNFe2/LoteRps.jws
+TESTE: 
+xmlns: 
+
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:proc="http://proces.wsnfe2.dsfnet.com.br">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <proc:cancelar soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+         <mensagemXml xsi:type="xsd:string">?</mensagemXml>
+      </proc:cancelar>
+   </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,24 @@
+Caixas_do_Sul RS
+IBGE: 4305108
+SIAF:
+Padrão: Infisc 1.65
+SOAP Version: 1.1 e/ou SOAP Version: 1.2
+URL Homologação: https://nfsehomol.caxias.rs.gov.br/portal/Servicos 
+URL Produção: https://nfse.caxias.rs.gov.br/portal/Servicos
+xmlns: https://nfse.caxias.rs.gov.br/site/nfse
+
+<?xml version="1.0" encoding="UTF-8"?>
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+      <ns1:enviarLoteNotas soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://ws.pc.gif.com.br/">
+        <xml xsi:type="xsd:string">
+          <!--
+          Aqui vai o conteúdo XML definido de acordo com os formatos 
+          de cada serviço Web a ser 
+          chamado. Estes formatos são apresentados
+          na Seção 3 a seguir deste Manual
+          -->
+        </xml>
+      </ns1:enviarLoteNotas>
+    </soapenv:Body>
+  </soapenv:Envelope>

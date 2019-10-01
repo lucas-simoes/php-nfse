@@ -1,0 +1,6 @@
+Padrão: ETransparencia
+SOAP Version: SOAP_1_1
+IBGE: 356902
+URL: https://nfe.etransparencia.com.br/sp.limeira/webservice/aws_nfe.aspx?wsdl
+URL: https://nfehomologacao.etransparencia.com.br/sp.limeira/webservice/aws_nfe.aspx?wsdl
+xmlns: NFe

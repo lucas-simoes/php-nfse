@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RetornoConsulta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.prefeitura.sp.gov.br/nfe">
+    <Cabecalho Versao="1" xmlns="">
+        <Sucesso>true</Sucesso>
+    </Cabecalho>
+    <NFe xmlns="">
+        <Assinatura>d8Pg/jdA7t5tSaB8Il1d/CMiLGgfFAXzTL9o5stv6TNbhm9I94DIo0/ocqJpGx0KzoEeIQz4RSn99pWX4fiW/aETlNT3u5woqCAyL6U2hSyl/eQfWRYrqFu2zcdc4rsAG/wJbDjNO8y0Pz9b6rlTwkIJ+kMdLo+EWXMnB744olYE721g2O9CmUTvjtBgCfVUgvuN1MGjgzpgyussCOSkLpGbrqtM5+pYMXZsTaEVIIck1baDkoRpLmZ5Y/mcn1/Om1fMyhJVUAkgI5xBrORuotIP7e3+HLJnKgzQQPWCtLyEEyAqUk9Gq64wMayITua5FodaJsX+Eic/ie3kS5m50Q==</Assinatura>
+        <ChaveNFe>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <NumeroNFe>17943</NumeroNFe>
+            <CodigoVerificacao>PH5GL6XU</CodigoVerificacao>
+        </ChaveNFe>
+        <DataEmissaoNFe>2015-01-28T13:03:57</DataEmissaoNFe>
+        <ChaveRPS>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <SerieRPS>BB</SerieRPS>
+            <NumeroRPS>4105</NumeroRPS>
+        </ChaveRPS>
+        <TipoRPS>RPS-M</TipoRPS>
+        <DataEmissaoRPS>2015-01-20</DataEmissaoRPS>
+        <CPFCNPJPrestador>
+            <CNPJ>99999997000100</CNPJ>
+        </CPFCNPJPrestador>
+        <RazaoSocialPrestador>JVA LAVANDERIA LTDA</RazaoSocialPrestador>
+        <EnderecoPrestador>
+            <TipoLogradouro>R</TipoLogradouro>
+            <Logradouro>PEDRO AMERICO</Logradouro>
+            <NumeroEndereco>00032</NumeroEndereco>
+            <ComplementoEndereco>27 ANDAR</ComplementoEndereco>
+            <Bairro>CENTRO</Bairro>
+            <Cidade>3550308</Cidade>
+            <UF>SP</UF>
+            <CEP>1045010</CEP>
+        </EnderecoPrestador>
+        <StatusNFe>N</StatusNFe>
+        <TributacaoNFe>T</TributacaoNFe>
+        <OpcaoSimples>4</OpcaoSimples>
+        <ValorServicos>20500</ValorServicos>
+        <ValorDeducoes>5000</ValorDeducoes>
+        <ValorPIS>10</ValorPIS>
+        <ValorCOFINS>10</ValorCOFINS>
+        <ValorINSS>10</ValorINSS>
+        <ValorIR>10</ValorIR>
+        <ValorCSLL>10</ValorCSLL>
+        <CodigoServico>7617</CodigoServico>
+        <AliquotaServicos>0</AliquotaServicos>
+        <ValorISS>0</ValorISS>
+        <ValorCredito>139.5</ValorCredito>
+        <ISSRetido>false</ISSRetido>
+        <CPFCNPJTomador>
+            <CPF>12345678909</CPF>
+        </CPFCNPJTomador>
+        <RazaoSocialTomador>JOAO TESTE</RazaoSocialTomador>
+        <EnderecoTomador>
+            <TipoLogradouro>R</TipoLogradouro>
+            <Logradouro>Sao Bento</Logradouro>
+            <NumeroEndereco>100</NumeroEndereco>
+            <Bairro>Centro</Bairro>
+            <Cidade>3550308</Cidade>
+            <UF>SP</UF>
+            <CEP>1010000</CEP>
+        </EnderecoTomador>
+        <EmailTomador>teste@teste.com.br</EmailTomador>
+        <Discriminacao>Desenvolvimento de Web Site Pessoal.</Discriminacao>
+        <FonteCargaTributaria />
+    </NFe>
+    <NFe xmlns="">
+        <Assinatura>XwAGUeJfR3AVRctSPTMyuF0wzkd5LSbsOpFEXxVCLdMI4RP7lGEAYwoHFSCfoL6iYH/XMGAXWpua8YUSjPzAXC//TpFnoaNmpN5f9YvpxhW/0y4NiZfYTBiuLlArDLXSG7691vMixk6xRnAXY1eL4GdgrW8GU8VtLjp1tyku5u+gzfkCJDaLi1h2JplbCCvXtNr7smcJl7srYo/MuyLvuawEBCWPr3TtLtRyEu3fsOX8E3TK6ReF5kJ1BF+lO6SIX0GFw+OxQukPVeJt3WXDGZseV8Uh7GNBgxpTRIf1LU4fSoIDXGDzE0UgNJWRKEgcMbDEECBTCYNHl5vFdmePxA==</Assinatura>
+        <ChaveNFe>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <NumeroNFe>17944</NumeroNFe>
+            <CodigoVerificacao>RAJXWXJP</CodigoVerificacao>
+        </ChaveNFe>
+        <DataEmissaoNFe>2015-01-28T13:07:34</DataEmissaoNFe>
+        <ChaveRPS>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <SerieRPS>BB</SerieRPS>
+            <NumeroRPS>4106</NumeroRPS>
+        </ChaveRPS>
+        <TipoRPS>RPS-M</TipoRPS>
+        <DataEmissaoRPS>2015-01-20</DataEmissaoRPS>
+        <CPFCNPJPrestador>
+            <CNPJ>99999997000100</CNPJ>
+        </CPFCNPJPrestador>
+        <RazaoSocialPrestador>JVA LAVANDERIA LTDA</RazaoSocialPrestador>
+        <EnderecoPrestador>
+            <TipoLogradouro>R</TipoLogradouro>
+            <Logradouro>PEDRO AMERICO</Logradouro>
+            <NumeroEndereco>00032</NumeroEndereco>
+            <ComplementoEndereco>27 ANDAR</ComplementoEndereco>
+            <Bairro>CENTRO</Bairro>
+            <Cidade>3550308</Cidade>
+            <UF>SP</UF>
+            <CEP>1045010</CEP>
+        </EnderecoPrestador>
+        <StatusNFe>N</StatusNFe>
+        <TributacaoNFe>T</TributacaoNFe>
+        <OpcaoSimples>4</OpcaoSimples>
+        <ValorServicos>20501</ValorServicos>
+        <ValorDeducoes>5000</ValorDeducoes>
+        <ValorPIS>10</ValorPIS>
+        <ValorCOFINS>10</ValorCOFINS>
+        <ValorINSS>10</ValorINSS>
+        <ValorIR>10</ValorIR>
+        <ValorCSLL>10</ValorCSLL>
+        <CodigoServico>7617</CodigoServico>
+        <AliquotaServicos>0</AliquotaServicos>
+        <ValorISS>0</ValorISS>
+        <ValorCredito>139.5</ValorCredito>
+        <ISSRetido>false</ISSRetido>
+        <CPFCNPJTomador>
+            <CPF>12345678909</CPF>
+        </CPFCNPJTomador>
+        <RazaoSocialTomador>JOAO TESTE</RazaoSocialTomador>
+        <EnderecoTomador>
+            <TipoLogradouro>R</TipoLogradouro>
+            <Logradouro>Sao Bento</Logradouro>
+            <NumeroEndereco>100</NumeroEndereco>
+            <Bairro>Centro</Bairro>
+            <Cidade>3550308</Cidade>
+            <UF>SP</UF>
+            <CEP>1010000</CEP>
+        </EnderecoTomador>
+        <EmailTomador>teste@teste.com.br</EmailTomador>
+        <Discriminacao>Desenvolvimento de Web Site Pessoal.</Discriminacao>
+        <FonteCargaTributaria />
+    </NFe>
+</RetornoConsulta>

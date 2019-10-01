@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RetornoEnvioRPS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.prefeitura.sp.gov.br/nfe">
+    <Cabecalho Versao="1" xmlns="">
+        <Sucesso>true</Sucesso>
+    </Cabecalho>
+    <ChaveNFeRPS xmlns="">
+        <ChaveNFe>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <NumeroNFe>17943</NumeroNFe>
+            <CodigoVerificacao>PH5GL6XU</CodigoVerificacao>
+        </ChaveNFe>
+        <ChaveRPS>
+            <InscricaoPrestador>39616924</InscricaoPrestador>
+            <SerieRPS>BB</SerieRPS>
+            <NumeroRPS>4105</NumeroRPS>
+        </ChaveRPS>
+    </ChaveNFeRPS>
+</RetornoEnvioRPS>

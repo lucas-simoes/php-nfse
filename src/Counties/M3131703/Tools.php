@@ -26,8 +26,8 @@ class Tools extends ToolsAbrasf
      * @var array
      */
     protected $url = [
-        1 => 'http://servicosweb.itabira.mg.gov.br:90/nfse.portal.integracao/services.svc',
-        2 => 'http://servicosweb.itabira.mg.gov.br:90/nfse.portal.integracao.teste/services.svc'
+        1 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc?wsdl',
+        2 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao.Teste/Services.svc?wsdl'
     ];
     /**
      * County Namespace

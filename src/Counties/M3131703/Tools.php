@@ -18,6 +18,7 @@ namespace NFePHP\NFSe\Counties\M3131703;
  */
 
 use NFePHP\NFSe\Models\Abrasf\Tools as ToolsAbrasf;
+use NFePHP\NFSe\Models\Abrasf\Factories;
 
 class Tools extends ToolsAbrasf
 {
@@ -26,8 +27,8 @@ class Tools extends ToolsAbrasf
      * @var array
      */
     protected $url = [
-        1 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc?wsdl',
-        2 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao.Teste/Services.svc?wsdl'
+        1 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc',
+        2 => 'http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao.Teste/Services.svc'
     ];
     /**
      * County Namespace
@@ -64,11 +65,9 @@ class Tools extends ToolsAbrasf
      * Namespaces for soap envelope
      * @var array
      */
-    protected $namespaces = [2];
+    protected $namespaces = ['xmlns:x'=>"http://schemas.xmlsoap.org/soap/envelope/", 'xmlns:tem'=>"http://tempuri.org/"];
     
-    protected $params = [
-                    "Content-Type: text/xml; charset=utf-8"
-                ];
+    protected $params = [];
     
     /**
      * Monta o request da mensagem SOAP
@@ -78,7 +77,6 @@ class Tools extends ToolsAbrasf
      */
     protected function sendRequest($url, $message)
     {
-        //Abrasf possui apenas uma URL
         if (!$url) {
             $url = $this->url[$this->config->tpAmb];
         }
@@ -94,7 +92,10 @@ class Tools extends ToolsAbrasf
 
         $message = str_replace('<?xml version="1.0"?>', '', $dom->saveXML());
 
-        $messageText = $message;
+        //O atributo xmlns precisa ser removido da tag <EnviarLoteRpsEnvio> pois
+        //o web service de Itabira não o reconhece
+        $messageText = str_replace('<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">', '<EnviarLoteRpsEnvio>', $message);
+        
         if ($this->withcdata) {
             $messageText = $this->stringTransform($message);
         }
@@ -102,11 +103,17 @@ class Tools extends ToolsAbrasf
         if (!count($this->params)) {
             $this->params = [
                 "Content-Type: text/xml;charset=utf-8;",
-                "SOAPAction: \"http://www.e-governeapps2.com.br/{$this->method}\""
+                "SOAPAction: http://tempuri.org/INFSEGeracao/{$this->method}"
             ];
         }
 
         $action = '';
+        
+        $header = '<x:Header>' .
+                  '<tem:cabecalho versao="'.$this->getVersionString().'">' .
+                  '<tem:versaoDados>'.$this->getVersionString().'</tem:versaoDados>' .
+                  '</tem:cabecalho>' .
+                  '</x:Header>';
 
         //Realiza o request SOAP
         return $this->soap->send(
@@ -116,7 +123,8 @@ class Tools extends ToolsAbrasf
             $this->soapversion,
             $this->params,
             $this->namespaces,
-            $request
+            $request,
+            $header
         );
     }
     
@@ -151,7 +159,9 @@ class Tools extends ToolsAbrasf
         
         $message = str_replace('<?xml version="1.0"?>', '', $dom->saveXML());
         
-        $messageText = $message;
+        //O atributo xmlns precisa ser removido da tag <EnviarLoteRpsEnvio> pois
+        //o web service de Itabira não o reconhece
+        $messageText = str_replace('<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">', '<EnviarLoteRpsEnvio>', $message);
         
         if ($this->withcdata) {
             $messageText = $this->stringTransform($message);
@@ -160,5 +170,62 @@ class Tools extends ToolsAbrasf
         $request = $this->makeRequest($messageText);
         
         return $messageText;
+    }  
+    
+    /**
+     * @param $message
+     * @return string
+     */
+    protected function makeRequest($message)
+    {
+        $versao = '2.02';
+        switch ($this->versao) {
+            case 100:
+                $request = "<{$this->method} xmlns=\"http://www.e-governeapps2.com.br/\">"
+                    . $message
+                    . "</{$this->method}>";
+                break;
+            case 201:
+                $versao = '2.01';
+            case 202:
+                $request =
+                    "<tem:{$this->method}>"
+                    . "<tem:xmlEnvio>"
+                    . "<![CDATA["
+                    . $message
+                    . "]]>"
+                    . "</tem:xmlEnvio>"
+                    . "</tem:{$this->method}>";        
+                break;
+            default:
+                throw new \LogicException('Versão não suportada');
+        }
+        return $request;
+    }  
+    
+    /**
+     * Retorna o nome da versão do Layout formatado
+     * @return string
+     */
+    private function getVersionString()
+    {
+        $return;
+        
+        switch ($this->versao) {
+            case 100:
+                $return = '1.00';
+                break;
+            case 201:
+                $return = '2.01';
+                break;
+            case 202:
+                $return = '2.02';
+                break;
+            default :
+                $return = '2.02';
+                break;
+        }
+        
+        return $return;
     }
 }

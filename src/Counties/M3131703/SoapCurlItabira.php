@@ -10,7 +10,12 @@ use NFePHP\Common\Exception\SoapException;
  *
  * @author lucas
  */
-class SoapCurlItabira extends SoapBase {
+class SoapCurlItabira extends SoapBase 
+{
+    /**
+     * @var array
+     */
+    protected $prefixes = [1 => 'soapenv', 2 => 'x'];
     
     /**
      * Send soap message to url
@@ -46,6 +51,8 @@ class SoapCurlItabira extends SoapBase {
             $soapheader
         );
         $msgSize = strlen($envelope);
+        
+        $this->httpver = CURL_HTTP_VERSION_1_0;
         
         $parameters[] = "Content-length: $msgSize";
      
@@ -127,5 +134,68 @@ class SoapCurlItabira extends SoapBase {
                 curl_setopt($oCurl, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
             }
         }
+    }
+    
+    /**
+     * Mount soap envelope
+     * @param string $request
+     * @param array $namespaces
+     * @param int $soapVer
+     * @param \SoapHeader $header
+     * @return string
+     */
+    protected function makeEnvelopeSoap(
+        $request,
+        $namespaces,
+        $soapVer = SOAP_1_2,
+        $header = null
+    ) {
+        $prefix = $this->prefixes[$soapVer];
+        $envelopeAttributes = $this->getStringAttributesModify($namespaces);
+        return $this->mountEnvelopString(
+            $prefix,
+            $envelopeAttributes,
+            $header,
+            $request
+        );
+    }
+    
+    /**
+     * Get attributes
+     * @param array $namespaces
+     * @return string
+     */
+    private function getStringAttributesModify($namespaces = [])
+    {
+        $envelopeAttributes = '';
+        foreach ($namespaces as $key => $value) {
+            $envelopeAttributes .= $key . '="' . $value . '" ';
+        }
+        return $envelopeAttributes;
+    }
+    
+    /**
+     * Create a envelop string
+     * @param string $envelopPrefix
+     * @param string $envelopAttributes
+     * @param string $header
+     * @param string $bodyContent
+     * @return string
+     */
+    private function mountEnvelopString(
+        $envelopPrefix,
+        $envelopAttributes = '',
+        $header = '',
+        $bodyContent = ''
+    ) {
+        return sprintf(
+            '<%s:Envelope %s>' . $header . '<%s:Body>%s</%s:Body></%s:Envelope>',
+            $envelopPrefix,
+            $envelopAttributes,
+            $envelopPrefix,
+            $bodyContent,
+            $envelopPrefix,
+            $envelopPrefix
+        );
     }
 }

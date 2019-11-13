@@ -69,6 +69,35 @@ class Tools extends ToolsAbrasf
     
     protected $params = [];
     
+    private $soapAction = 'http://tempuri.org/INFSEGeracao/';
+    
+    /**
+     * Os métodos que realizar operações no webservice precisam ser sobrescritos (Override)
+     * somente para setar o soapAction espefico de cada operação (INFSEGeracao, INFSEConsultas, etc.)
+     * @param $lote
+     * @param $rpss
+     * @return string
+     */
+    public function recepcionarLoteRps($lote, $rpss) {
+        
+        $this->soapAction = 'http://tempuri.org/INFSEGeracao/';
+        
+        return parent::recepcionarLoteRps($lote, $rpss);
+    }
+    
+    /**
+     * Os métodos que realizar operações no webservice precisam ser sobrescritos (Override)
+     * somente para setar o soapAction espefico de cada operação (INFSEGeracao, INFSEConsultas, etc.)
+     * @param $protocolo
+     * @return string
+     */
+    public function consultarLoteRps($protocolo) {
+        
+        $this->soapAction = 'http://tempuri.org/INFSEConsultas/';
+        
+        return parent::consultarLoteRps($protocolo);
+    }
+
     /**
      * Monta o request da mensagem SOAP
      * @param string $url
@@ -94,7 +123,7 @@ class Tools extends ToolsAbrasf
 
         //O atributo xmlns precisa ser removido da tag <EnviarLoteRpsEnvio> pois
         //o web service de Itabira não o reconhece
-        $messageText = str_replace('<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">', '<EnviarLoteRpsEnvio>', $message);
+        $messageText = str_replace('xmlns="http://www.abrasf.org.br/nfse.xsd"', '', $message);
         
         if ($this->withcdata) {
             $messageText = $this->stringTransform($message);
@@ -103,7 +132,7 @@ class Tools extends ToolsAbrasf
         if (!count($this->params)) {
             $this->params = [
                 "Content-Type: text/xml;charset=utf-8;",
-                "SOAPAction: http://tempuri.org/INFSEGeracao/{$this->method}"
+                "SOAPAction: {$this->soapAction}{$this->method}"
             ];
         }
 

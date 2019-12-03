@@ -257,4 +257,31 @@ class Tools extends ToolsAbrasf
         
         return $return;
     }
+    
+    public function cancelarNfse($nfseNumero) {
+        
+        $this->soapAction = 'http://tempuri.org/INFSEGeracao/';
+        
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\CancelarNfse";
+        $fact = new $class($this->certificate);
+        
+        $this->method = 'CancelarNfse';
+        $fact->xmlns = $this->xmlns;
+        $fact->schemeFolder = $this->schemeFolder;
+        $fact->codMun = $this->config->cmun;
+        $fact->algorithm = $this->algorithm;
+        //$fact->setTimezone($this->timezone);
+        $message = $fact->render(
+            $this->versao,
+            $this->remetenteTipoDoc,
+            $this->remetenteCNPJCPF,
+            $this->remetenteIM,
+            $nfseNumero
+        );
+
+        // @header ("Content-Disposition: attachment; filename=\"NFSe_Lote.xml\"" );
+        // echo $message;
+        // exit;
+        return $this->sendRequest('', $message);
+    }
 }

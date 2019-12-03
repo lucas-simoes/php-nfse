@@ -26,7 +26,7 @@ class Tools extends ToolsBase
     protected $schemeFolder = 'Abrasf';
     protected $params = [];
 
-    public function cancelarNfse()
+    public function cancelarNfse($nfseNumero)
     {
     }
 

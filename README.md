@@ -159,11 +159,12 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 
 ## Municipios atendidos pelo Framework
 
-### Em estudo 
+### ABRASF (BETA-TESTS) 
 - Salvador (BA) ABRASF (modificado)
 - Rio de Janeiro (RJ) ABRASF (modificado)
 - São José dos Campos (SP) GINFESv3
 - Limeira (SP) ETransparencia
+- Itabira (MG) ABRASF (modificado)
 
 ### DSFNET (ALPHA-TESTS)
 - Campinas (SP)

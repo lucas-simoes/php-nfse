@@ -4,5 +4,5 @@ SIAF: 5143
 Padrão: Abrasf v203 - Modificado
 SOAP Version: 1.2
 URL Homologação: http://wshomologacaoabrasf.simplissweb.com.br/nfseservice.svc
-URL Produção: https://santabarbara.simplissweb.com.br/nfseservice.svc
+URL Produção: https://wssantabarbara.simplissweb.com.br/nfseservice.svc
 xmlns: http://www.abrasf.org.br/nfse.xsd

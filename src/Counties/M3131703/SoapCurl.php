@@ -10,7 +10,7 @@ use NFePHP\Common\Exception\SoapException;
  *
  * @author lucas
  */
-class SoapCurlItabira extends SoapBase 
+class SoapCurl extends SoapBase 
 {
     /**
      * @var array
@@ -111,10 +111,10 @@ class SoapCurlItabira extends SoapBase
             throw SoapException::unableToLoadCurl($e->getMessage());
         }
         if ($this->soaperror != '') {
-            throw SoapException::soapFault($this->soaperror . " [$url]");
+            throw SoapException::soapFault($this->soaperror . " [$url]", 500);
         }
         if ($httpcode != 200) {
-            throw SoapException::soapFault(" [$url]" . $this->responseHead);
+            throw SoapException::soapFault(" [$url]" . $this->responseHead, 500);
         }
         return $this->responseBody;
     }

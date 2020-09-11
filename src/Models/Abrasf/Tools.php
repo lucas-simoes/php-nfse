@@ -17,6 +17,7 @@ namespace NFePHP\NFSe\Models\Abrasf;
  */
 
 use NFePHP\NFSe\Common\Tools as ToolsBase;
+use NFePHP\Common\Soap\SoapCurl as SoapCurl;
 use NFePHP\NFSe\Models\Abrasf\Factories;
 
 
@@ -71,7 +72,7 @@ class Tools extends ToolsBase
         }
 
         if (!is_object($this->soap)) {
-            $this->soap = new \NFePHP\NFSe\Common\SoapCurl($this->certificate);
+            $this->soap = new SoapCurl($this->certificate);
         }
         //formata o xml da mensagem para o padão esperado pelo webservice
         $dom = new \DOMDocument('1.0', 'UTF-8');

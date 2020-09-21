@@ -33,8 +33,8 @@ class Tools extends ToolsAbrasf
      * @var array
      */
     protected $url = [
-        1 => 'https://wssantabarbara.simplissweb.com.br/nfseservice.svc',
-        2 => 'https://wshomologacaoabrasf.simplissweb.com.br/nfseservice.svc'
+        1 => 'http://wssantabarbara.simplissweb.com.br/nfseservice.svc',
+        2 => 'http://wshomologacaoabrasf.simplissweb.com.br/nfseservice.svc'
     ];
     /**
      * County Namespace

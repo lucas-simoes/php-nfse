@@ -282,12 +282,19 @@ class Rps extends RpsBase
     /**
      * Set number of RPS
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function numero($value)
+    public function numero($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O numero do RPS deve ser um inteiro positivo apenas.";
+        } else {
+            $msg = "O item '$campo' deve ser um inteiro positivo apenas. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->positive()->validate($value)) {
-            throw new \InvalidArgumentException('O numero do RPS deve ser um inteiro positivo apenas.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infNumero = $value;
     }
@@ -295,13 +302,20 @@ class Rps extends RpsBase
     /**
      * Set series of RPS
      * @param string $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function serie($value)
+    public function serie($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "A série não pode ser vazia e deve ter até 5 caracteres.";
+        } else {
+            $msg = "O item '$campo' não pode ser vazio e deve ter até 5 caracteres. Informado: '$value'";
+        }
+
         $value = trim($value);
         if (!Validator::stringType()->length(1, 5)->validate($value)) {
-            throw new \InvalidArgumentException('A série não pode ser vazia e deve ter até 5 caracteres.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infSerie = $value;
     }
@@ -309,12 +323,19 @@ class Rps extends RpsBase
     /**
      * Set type of RPS
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function tipo($value = self::TIPO_RPS)
+    public function tipo($value = self::TIPO_RPS, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O tipo deve estar entre 1 e 3.";
+        } else {
+            $msg = "O item '$campo' deve ser um valor inteiro entre 1 e 3. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 3)->validate($value)) {
-            throw new \InvalidArgumentException('O tipo deve estar entre 1 e 3.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infTipo = $value;
     }
@@ -347,12 +368,19 @@ class Rps extends RpsBase
     /**
      * Set type of kind tax operation
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function naturezaOperacao($value = self::NATUREZA_INTERNA)
+    public function naturezaOperacao($value = self::NATUREZA_INTERNA, $campo = null)
     {
+        if (!$campo) {
+            $msg = "A natureza da operação deve estar entre 1 e 6.";
+        } else {
+            $msg = "O item '$campo' deve estar entre 1 e 6. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 6)->validate($value)) {
-            throw new \InvalidArgumentException('A natureza da operação deve estar entre 1 e 6.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infNaturezaOperacao = $value;
     }
@@ -360,12 +388,19 @@ class Rps extends RpsBase
     /**
      * Set opting for Simple National tax regime
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function optanteSimplesNacional($value = self::SIM)
+    public function optanteSimplesNacional($value = self::SIM, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Optante pelo Simples deve ser 1 ou 2.";
+        } else {
+            $msg = "O item '$campo' deve ser 1 ou 2. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 2)->validate($value)) {
-            throw new \InvalidArgumentException('Optante pelo Simples deve ser 1 ou 2.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infOptanteSimplesNacional = $value;
     }
@@ -373,12 +408,19 @@ class Rps extends RpsBase
     /**
      * Set encouraging cultural flag
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function incentivadorCultural($value = self::NAO)
+    public function incentivadorCultural($value = self::NAO, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Incentivador cultural deve ser 1 ou 2.";
+        } else {
+            $msg = "O item '$campo' deve ser 1 ou 2. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 2)->validate($value)) {
-            throw new \InvalidArgumentException('Incentivador cultural deve ser 1 ou 2.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infIncentivadorCultural = $value;
     }
@@ -386,12 +428,19 @@ class Rps extends RpsBase
     /**
      * Set RPS status
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function status($value = self::STATUS_NORMAL)
+    public function status($value = self::STATUS_NORMAL, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O status do RPS deve ser 1 ou 2.";
+        } else {
+            $msg = "O item '$campo' deve ser 1 ou 2. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 2)->validate($value)) {
-            throw new \InvalidArgumentException('O status do RPS deve ser 1 ou 2.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infStatus = $value;
     }
@@ -399,12 +448,19 @@ class Rps extends RpsBase
     /**
      * Set special tax regime
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function regimeEspecialTributacao($value = self::REGIME_MICROEMPRESA)
+    public function regimeEspecialTributacao($value = self::REGIME_MICROEMPRESA, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O regime de tributação deve estar entre 1 e 4.";
+        } else {
+            $msg = "O item '$campo' deve estar entre 1 e 4. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 4)->validate($value)) {
-            throw new \InvalidArgumentException('O regime de tributação deve estar entre 1 e 4.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infRegimeEspecialTributacao = $value;
     }
@@ -412,12 +468,19 @@ class Rps extends RpsBase
     /**
      * Set service amount
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorServicos($value = 0.00)
+    public function valorServicos($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorServicos = round($value, 2);
     }
@@ -425,12 +488,19 @@ class Rps extends RpsBase
     /**
      * Set other withholdings amount
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function outrasRetencoes($value = 0.00)
+    public function outrasRetencoes($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infOutrasRetencoes = round($value, 2);
     }
@@ -438,12 +508,19 @@ class Rps extends RpsBase
     /**
      * Set amount for PIS tax
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorPis($value = 0.00)
+    public function valorPis($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorPis = round($value, 2);
     }
@@ -451,12 +528,19 @@ class Rps extends RpsBase
     /**
      * Set amount for COFINS tax
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorCofins($value = 0.00)
+    public function valorCofins($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorCofins = round($value, 2);
     }
@@ -464,12 +548,19 @@ class Rps extends RpsBase
     /**
      * Set amount for INSS tax
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorInss($value = 0.00)
+    public function valorInss($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorInss = round($value, 2);
     }
@@ -477,12 +568,19 @@ class Rps extends RpsBase
     /**
      * Set amount for IR tax
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorIr($value = 0.00)
+    public function valorIr($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorIr = round($value, 2);
     }
@@ -490,12 +588,19 @@ class Rps extends RpsBase
     /**
      * Set amount for CSLL tax
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorCsll($value = 0.00)
+    public function valorCsll($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorCsll = round($value, 2);
     }
@@ -503,12 +608,19 @@ class Rps extends RpsBase
     /**
      * Set ISS taxes retention flag
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function issRetido($value = self::NAO)
+    public function issRetido($value = self::NAO, $campo = null)
     {
+        if (!$campo) {
+            $msg = "IssRetido deve ser 1 ou 2.";
+        } else {
+            $msg = "O item '$campo' deve ser 1 ou 2. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->between(1, 2)->validate($value)) {
-            throw new \InvalidArgumentException('IssRetido deve ser 1 ou 2.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infIssRetido = $value;
     }
@@ -516,12 +628,19 @@ class Rps extends RpsBase
     /**
      * Set amount withheld of ISS
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorIssRetido($value = 0.00)
+    public function valorIssRetido($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorIssRetido = round($value, 2);
     }
@@ -529,12 +648,19 @@ class Rps extends RpsBase
     /**
      * Set amount of ISS
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorIss($value = 0.00)
+    public function valorIss($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorIss = round($value, 2);
     }
@@ -543,12 +669,19 @@ class Rps extends RpsBase
      * Set calculation base value
      * (Valor dos serviços - Valor das deduções - descontos incondicionados)
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function baseCalculo($value = 0.00)
+    public function baseCalculo($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infBaseCalculo = round($value, 2);
     }
@@ -556,12 +689,19 @@ class Rps extends RpsBase
     /**
      * Set ISS tax aliquot in percent
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function aliquota($value = 0.00)
+    public function aliquota($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infAliquota = round($value, 4);
     }
@@ -569,12 +709,19 @@ class Rps extends RpsBase
     /**
      * Set deductions amount
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorDeducoes($value = 0.00)
+    public function valorDeducoes($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorDeducoes = round($value, 2);
     }
@@ -585,12 +732,19 @@ class Rps extends RpsBase
      * - ValorIR - ValorCSLL - OutrasRetençoes - ValorISSRetido
      * - DescontoIncondicionado - DescontoCondicionado)
      * @param type $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function valorLiquidoNfse($value = 0.00)
+    public function valorLiquidoNfse($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infValorLiquidoNfse = round($value, 2);
     }
@@ -598,12 +752,19 @@ class Rps extends RpsBase
     /**
      * Set inconditioning off amount
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function descontoIncondicionado($value = 0.00)
+    public function descontoIncondicionado($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infDescontoIncondicionado = round($value, 2);
     }
@@ -611,12 +772,19 @@ class Rps extends RpsBase
     /**
      * Set conditioning off amount
      * @param float $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function descontoCondicionado($value = 0.00)
+    public function descontoCondicionado($value = 0.00, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Os valores devem ser numericos tipo float.";
+        } else {
+            $msg = "O item '$campo' deve ser numérico tipo float. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
-            throw new \InvalidArgumentException('Os valores deve ser numericos tipo float.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infDescontoCondicionado = round($value, 2);
     }
@@ -624,14 +792,20 @@ class Rps extends RpsBase
     /**
      * Set Services List item
      * @param string $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function itemListaServico($value)
+    public function itemListaServico($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O item da lista é obrigatório e deve ter no máximo 5 caracteres.";
+        } else {
+            $msg = "O item '$campo' é obrigatório e deve ter no máximo 5 caracteres. Informado: '$value'";
+        }
+
         $value = trim($value);
         if (!Validator::stringType()->length(1, 5)->validate($value)) {
-            throw new \InvalidArgumentException('O item da lista é obrigatório e'
-                . ' deve ter no máximo 5 caracteres.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infItemListaServico = $value;
     }
@@ -639,12 +813,19 @@ class Rps extends RpsBase
     /**
      * Set CNAE code
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function codigoCnae($value)
+    public function codigoCnae($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O código CNAE é obrigatorio.";
+        } else {
+            $msg = "O item '$campo' é obrigatório e precisa ser um valor inteiro. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->validate($value)) {
-            throw new \InvalidArgumentException('O código CNAE é obrigatorio.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infCodigoCnae = $value;
     }
@@ -652,14 +833,20 @@ class Rps extends RpsBase
     /**
      * Set tax code from county
      * @param string $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function codigoTributacaoMunicipio($value)
+    public function codigoTributacaoMunicipio($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "O codigo de tributação é obrigatório e deve ter no máximo 20 caracteres.";
+        } else {
+            $msg = "O item '$campo' é obrigatório e deve ter no máximo 20 caracteres. Informado: '$value'";
+        }
+
         $value = trim($value);
         if (!Validator::stringType()->length(1, 20)->validate($value)) {
-            throw new \InvalidArgumentException('O codigo de tributação é obrigatório e deve ter '
-                . 'no máximo 20 caracteres.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infCodigoTributacaoMunicipio = $value;
     }
@@ -667,14 +854,20 @@ class Rps extends RpsBase
     /**
      * Set discrimination of service
      * @param string $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function discriminacao($value)
+    public function discriminacao($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "A discriminação é obrigatória e deve ter no máximo 2000 caracteres.";
+        } else {
+            $msg = "O item '$campo' é obrigatória e deve ter no máximo 2000 caracteres. Informado: ".strlen($value)." caracteres";
+        }
+
         $value = trim($value);
         if (!Validator::stringType()->length(1, 2000)->validate($value)) {
-            throw new \InvalidArgumentException('A discriminação é obrigatória e deve ter '
-                . 'no máximo 2000 caracteres.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infDiscriminacao = $value;
     }
@@ -692,12 +885,19 @@ class Rps extends RpsBase
     /**
      * Set IBGE county code where service was realized
      * @param int $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
-    public function municipioPrestacaoServico($value)
+    public function municipioPrestacaoServico($value, $campo = null)
     {
+        if (!$campo) {
+            $msg = "Deve ser passado o código do IBGE.";
+        } else {
+            $msg = "O item '$campo' deve ser inteiro, referente ao código IBGE. Informado: '$value'";
+        }
+
         if (!Validator::numeric()->intVal()->validate($value)) {
-            throw new \InvalidArgumentException('Deve ser passado o código do IBGE.');
+            throw new \InvalidArgumentException($msg);
         }
         $this->infMunicipioPrestacaoServico = $value;
     }

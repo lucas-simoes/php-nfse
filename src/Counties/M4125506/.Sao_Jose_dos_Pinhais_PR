@@ -1,0 +1,8 @@
+Sao Jose dos Pinhais PR
+IBGE: 4125506
+SIAF: 7885
+Padrão: Ginfes Abrasf v3
+SOAP Version: 1.2
+URL Homologação: https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl
+URL Produção: https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl
+xmlns: http://www.abrasf.org.br/nfse.xsd

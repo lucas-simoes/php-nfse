@@ -214,6 +214,9 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 ### PRODAM (BETA-TESTS)
 - São Paulo (SP) Nota: não tem ambiente de testes
 
+### SIGISS SigCorp (BETA-TESTS) 
+- Londrina (PR) SIGISS SigCorp v1.03
+
 ## Install
 
 Via Composer

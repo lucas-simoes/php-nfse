@@ -1,0 +1,9 @@
+Londrina PR
+https://portal.londrina.pr.gov.br/publicacoes-nota-fiscal-dms/manuais-nota-fiscal-dms
+IBGE: 4113700
+SIAF: 7667
+Padrão: SIGISS SigCorp v1.03
+SOAP Version: 1.1
+URL Homologação: http://testeiss.londrina.pr.gov.br/ws/v1_03/sigiss_ws.php?wsdl
+URL Produção: https://iss.londrina.pr.gov.br/ws/v1_03/sigiss_ws.php?wsdl
+xmlns: http://iss.londrina.pr.gov.br/ws/v1_03

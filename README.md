@@ -165,6 +165,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - São José dos Campos (SP) GINFESv3
 - Limeira (SP) ETransparencia
 - Itabira (MG) ABRASF (modificado)
+- São Jose dos Pinhais (PR) ABRASF (modificado)
 
 ### DSFNET (ALPHA-TESTS)
 - Campinas (SP)

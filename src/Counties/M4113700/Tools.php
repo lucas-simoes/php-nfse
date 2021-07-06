@@ -17,6 +17,7 @@ namespace NFePHP\NFSe\Counties\M4113700;
  * @link      http://github.com/nfephp-org/sped-nfse for the canonical source repository
  */
 
+use NFePHP\NFSe\Models\SIGISS\SoapCurl;
 use NFePHP\NFSe\Models\SIGISS\Tools as ToolsSIGISS;
 
 class Tools extends ToolsSIGISS
@@ -199,7 +200,7 @@ class Tools extends ToolsSIGISS
         }
 
         if (!is_object($this->soap)) {
-            $this->soap = new \NFePHP\NFSe\Counties\M4113700\SoapCurl($this->certificate);
+            $this->soap = new SoapCurl($this->certificate);
         }
 
         //formata o xml da mensagem para o padão esperado pelo webservice

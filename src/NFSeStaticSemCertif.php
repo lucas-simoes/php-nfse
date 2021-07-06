@@ -4,7 +4,7 @@ namespace NFePHP\NFSe;
 
 /**
  * Classe para a instanciação das classes espcificas de cada municipio
- * atendido pela API que nao trabalham com certificados e assinaturas de documentos
+ * atendido pela API
  *
  * @category  NFePHP
  * @package   NFePHP\NFSe\NFSeStatic
@@ -16,6 +16,7 @@ namespace NFePHP\NFSe;
  * @link      http://github.com/nfephp-org/sped-nfse for the canonical source repository
  */
 
+use NFePHP\Common\Certificate;
 use NFePHP\NFSe\Counties;
 use RuntimeException;
 use stdClass;
@@ -37,13 +38,14 @@ class NFSeStaticSemCertif
      *
      * @param string $className
      * @param stdClass $config
+     * @param NFePHP\Common\Certificate|null $certificate
      * @return \NFePHP\NFSe\className
      * @throws RuntimeException
      */
-    private static function classCheck($className, stdClass $config)
+    private static function classCheck($className, stdClass $config, $certificate = null)
     {
         if (class_exists($className)) {
-            return new $className($config);
+            return new $className($config, $certificate);
         }
         $msg = 'Este municipio não é atendido pela API.';
         throw new RuntimeException($msg);
@@ -78,11 +80,12 @@ class NFSeStaticSemCertif
      * para um municipio em particular
      *
      * @param stdClass $config
+     * @param NFePHP\Common\Certificate|null $certificate
      * @return \NFePHP\NFSe\Counties\class
      */
-    public static function tools(stdClass $config)
+    public static function tools(stdClass $config, Certificate $certificate = null)
     {
-        return self::classCheck(self::getClassName($config, 'Tools'), $config);
+        return self::classCheck(self::getClassName($config, 'Tools'), $config, $certificate);
     }
 
     /**

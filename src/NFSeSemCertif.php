@@ -2,6 +2,8 @@
 
 namespace NFePHP\NFSe;
 
+use NFePHP\Common\Certificate;
+
 /**
  * Classe para a instanciação das classes especificas de cada municipio
  * atendido pela API que nao trabalham com certificados e assinaturas de documentos
@@ -26,8 +28,9 @@ class NFSeSemCertif
     /**
      * Construtor da classe
      * @param string $config Path to file or string Json
+     * @param NFePHP\Common\Certificate $certificate
      */
-    public function __construct($config)
+    public function __construct($config, Certificate $certificate = null)
     {
         if (is_file($config)) {
             $config = file_get_contents($config);
@@ -35,7 +38,7 @@ class NFSeSemCertif
         $configClass = json_decode($config);
         $this->convert = NFSeStaticSemCertif::convert($configClass);
         $this->rps = NFSeStaticSemCertif::rps($configClass);
-        $this->tools = NFSeStaticSemCertif::tools($configClass);
+        $this->tools = NFSeStaticSemCertif::tools($configClass, $certificate);
         $this->response = NFSeStaticSemCertif::response($configClass);
     }
 }

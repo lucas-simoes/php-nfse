@@ -677,7 +677,7 @@ class GerarNota extends Factory
             }
 
             if ($rps->infValorTotal != $valorTotal) {
-                #throw new InvalidArgumentException("A soma do valor das parcelas deve ser igual ao da tag <valor_total>");
+                throw new InvalidArgumentException("A soma do valor das parcelas deve ser igual ao da tag <valor_total>");
             }
             //Adiciona as tags ao DOM
             $root->appendChild($forma_pagamento);
@@ -700,6 +700,7 @@ class GerarNota extends Factory
         }
 
         $body = $this->clear($body);
+        #echo '<pre>'.print_r($body).'</pre>';die;
         return '<?xml version="1.0" encoding="ISO-8859-1"?>' . $body;
     }
 }

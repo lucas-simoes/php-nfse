@@ -7,7 +7,7 @@ use Respect\Validation\Validator;
 
 /**
  * @author Tiago Franco
- * Servico para
+ * Definicao das informacoes da tag itens para geracao das notas
  */
 class ItensRps
 {
@@ -127,7 +127,7 @@ class ItensRps
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -142,12 +142,12 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infUnidadeQuantidade = $value;
+        $this->infUnidadeQuantidade = $this->getValorFormatado($value);
     }
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -162,7 +162,7 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infUnidadeValorUnitario = $value;
+        $this->infUnidadeValorUnitario = $this->getValorFormatado($value);
     }
 
     /**
@@ -207,7 +207,7 @@ class ItensRps
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -222,7 +222,7 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infAliquotaItemListaServico = $value;
+        $this->infAliquotaItemListaServico = $this->getValorFormatado($value);
     }
 
     /**
@@ -247,7 +247,7 @@ class ItensRps
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -262,12 +262,12 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infValorTributavel = $value;
+        $this->infValorTributavel = $this->getValorFormatado($value);
     }
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -282,12 +282,12 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infValorDeducao = $value;
+        $this->infValorDeducao = $this->getValorFormatado($value);
     }
 
     /**
      * Set opting for Code Unidad
-     * @param int $value
+     * @param float $value
      * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
      * @throws InvalidArgumentException
      */
@@ -302,7 +302,11 @@ class ItensRps
         if (!Validator::numeric()->floatVal()->min(0)->validate($value)) {
             throw new \InvalidArgumentException($msg);
         }
-        $this->infValorIssrf = $value;
+        $this->infValorIssrf = $this->getValorFormatado($value);
     }
-    
+
+    private function getValorFormatado($value)
+    {
+        return \number_format(round($value, 2), 2, ',', '');
+    }
 }

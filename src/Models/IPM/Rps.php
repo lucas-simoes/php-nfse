@@ -5,7 +5,7 @@ namespace NFePHP\NFSe\Models\IPM;
 /**
  * Classe a construção do xml dos RPS
  * para o modelo IPM
- * NOTA: IPM extende ABRASF
+ * 
  *
  * @category  NFePHP
  * @package   NFePHP\NFSe\Models\IPM\Rps
@@ -37,7 +37,7 @@ class Rps extends RpsBase
     const NAO = 2;
 
     /**
-     * @var array
+     * @var string
      */
     public $infCpfCnpjPrestador;
     /**
@@ -112,7 +112,7 @@ class Rps extends RpsBase
     public $infNumero;
 
     /**
-     * @var int
+     * @var inta
      */
     public $infSerie;
 

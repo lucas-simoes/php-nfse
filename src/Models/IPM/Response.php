@@ -5,7 +5,7 @@ namespace NFePHP\NFSe\Models\IPM;
 /**
  * Classe para extração dos dados retornados pelos webservices
  * conforme o modelo IPM
- * NOTA: IPM extende ABRASF
+ * 
  *
  * @category  NFePHP
  * @package   NFePHP\NFSe\Models\IPM\Response

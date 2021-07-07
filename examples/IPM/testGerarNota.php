@@ -4,7 +4,6 @@ ini_set('display_errors', 'On');
 require_once '../../bootstrap.php';
 
 
-use NFePHP\Common\Certificate;
 use NFePHP\NFSe\Models\IPM\ItensRps;
 use NFePHP\NFSe\NFSeSemCertif;
 use NFePHP\NFSe\Models\IPM\Rps;
@@ -15,17 +14,17 @@ $arr = [
     "atualizacao" => "2016-08-03 18:01:21",
     "tpAmb" => 2,
     "versao" => 1,
-    "teste" => 1,
     "razaosocial" => "SUA RAZAO SOCIAL LTDA",
     "cnpj" => "99999999999999",
     "cpf" => "",
     "im" => "99999999",
     "ie" => "23445",
-    "cod_tom_municipio" => "7513",
     "cmun" => "4105805", //COLOMBO
     "siglaUF" => "PR",
-    "trabalha_com_rps" => 1,
-    "login" => 'usuario@user.com.br',
+    "cod_tom_municipio" => "7513", //importante para uso das operacoes IPM
+    "teste" => 1, #defini a operacao como teste
+    "trabalha_com_rps" => 1, //define se a prefeitura trabalha com rps
+    "login" => 'usuario@user.com.br', //usuario e senha para autenticacao 
     "senha" => 'senha',
     "pathNFSeFiles" => "/dados/nfse",
     "proxyConf" => [
@@ -35,10 +34,13 @@ $arr = [
         "proxyPass" => ""
     ]    
 ];
+
 $configJson = json_encode($arr);
 
 try {
-
+    
+    #permite utilizar tanto para prefeituras que exigem ou nao certificados
+    #$nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
     $nfse = new NFSeSemCertif($configJson);
      
     //Por ora apenas o SoapCurl funciona com IssNet
@@ -50,6 +52,7 @@ try {
     
     //Construção do RPS
     $rps = new Rps();
+    $rps->cpfCnpjPrestador('99999999999999');
     $rps->tomador(RPS::TOMADORES, '11111111111111','78899999','TOMADOR TESTE', 'TESTE SA', 'teste@teste.com');
     $rps->tomadorEstrangeiro(78855, 'California', 'Estados Unidos');
     $rps->tomadorTelefone('041','99999999','041','999999999');
@@ -102,11 +105,11 @@ try {
 
     $rps->produtos('Produtos testes', 300.00);
 
-    $rps->formaPagamento(Rps::CARTAODEBITO);
+    /*$rps->formaPagamento(Rps::CARTAODEBITO);
     $rps->addParcela(1, 45.00, new \DateTime("2021-01-01", $timezone));
     $rps->addParcela(2, 45.00, new \DateTime("2021-02-01", $timezone));
     $rps->addParcela(3, 45.00, new \DateTime("2021-03-01", $timezone));
-    $rps->addParcela(4, 45.00, new \DateTime("2021-04-01", $timezone));
+    $rps->addParcela(4, 45.00, new \DateTime("2021-04-01", $timezone));*/
     
     //envio do RPS
     $response = $nfse->tools->gerarNota($rps);

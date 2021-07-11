@@ -230,6 +230,11 @@ class Rps extends RpsBase
     public $infMunicipioPrestacaoServico;
 
     /**
+     * @var string
+     */
+    public $infCodigoVerificacao;
+
+    /**
      * Set informations of provider          
      * @param string $cnpjcpf
      * @param string $im
@@ -1027,5 +1032,26 @@ class Rps extends RpsBase
             throw new \InvalidArgumentException($msg);
         }
         $this->infMunicipioPrestacaoServico = $value;
+    }
+
+    /**
+     * Set discrimination of service
+     * @param string $value
+     * @param string $campo - String com o nome do campo caso queira mostrar na mensagem de validação
+     * @throws InvalidArgumentException
+     */
+    public function codigoVerificacao($value, $campo = null)
+    {
+        if (!$campo) {
+            $msg = "A discriminação é obrigatória e deve ter no máximo 9 caracteres.";
+        } else {
+            $msg = "O item '$campo' é obrigatória e deve ter no máximo 9 caracteres. Informado: ".strlen($value)." caracteres";
+        }
+
+        $value = trim($value);
+        if (!Validator::stringType()->length(1, 9)->validate($value)) {
+            throw new \InvalidArgumentException($msg);
+        }
+        $this->infCodigoVerificacao = $value;
     }
 }

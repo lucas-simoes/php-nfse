@@ -281,7 +281,7 @@ class RenderRps extends RenderRPSBase
         self::$dom->addChild(
             $valores,
             'Aliquota',
-            number_format($rps->infAliquota, 2, '.', ''),
+            $rps->infAliquota,
             false,
             'Aliquota',
             false
@@ -779,7 +779,7 @@ class RenderRps extends RenderRPSBase
         SignerRps::sign(
             self::$certificate,
             'InfRps',
-            'Id',
+            'id',
             self::$algorithm,
             [false, false, null, null],
             $dom,

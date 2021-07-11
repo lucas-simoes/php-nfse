@@ -18,7 +18,7 @@ $arr = [
     "cpf" => "",
     "im" => "99999999",
     "ie" => "23445",
-    "cmun" => "4203006", //CACADOR
+    "cmun" => "4203006", //CACADOR NAO ESTA HABILITADO CARTA CORRECAO
     "siglaUF" => "SC",
     "pathNFSeFiles" => "/dados/nfse",
     "proxyConf" => [
@@ -58,15 +58,45 @@ try {
         'PR',
         '78088408'
     );
-
-    $rps->numero(2);
-    $rps->serie(1);
-    $rps->tipo(RPS::TIPO_RPS);
     
+    $timezone = new \DateTimeZone('America/Sao_Paulo');
+    $rps->dataEmissao(new \DateTime("now", $timezone));
+    $rps->competencia('2020','04');
+    $rps->naturezaOperacao(Rps::NATUREZA_SUSPENSA_JUS);
+    $rps->optanteSimplesNacional(Rps::SIM);
+    $rps->incentivadorCultural(Rps::NAO);
+    $rps->status(Rps::SIM);
+    $rps->valorServicos(1321.50);
+    $rps->valorDeducoes(5.0000);
+    $rps->valorPis(0.00);
+    $rps->valorCofins(0.00);
+    $rps->valorInss(0.00);
+    $rps->valorIr(0.00);
+    $rps->valorCsll(0.00);
+    $rps->issRetido(Rps::SIM);
+    $rps->valorIss(0.00);
+    $rps->outrasRetencoes(0.00);
+    $rps->baseCalculo(2.00);
+    $rps->aliquota(3.00);
+    $rps->valorLiquidoNfse(0.00);
+    $rps->valorIssRetido(0.00);
+    $rps->descontoCondicionado(0.00);
+    $rps->descontoIncondicionado(0.00);
+
+    #$rps->issConstrucaoCivil(1,'99999999999999', 300.67, '3884848ujuguhsu94949499');
+    $rps->itemListaServico(1401);
+
+    $rps->codigoMunicipio(102);
     #$rps->discriminacao('teste'); //ou
     $rps->addItemDiscriminacao('descricao',102,0.03,5,4.50);
     $rps->addItemDiscriminacao('descricao2',102,0.03,5,4.50);
     
+    #$rps->codigoVerificacao(23455);
+    $nfseNumero    = "201200000000060";
+    $retificaValor = true;
+    //envio do RPS
+    $response = $nfse->tools->cartaCorrecaoNfseEnvio($nfseNumero, $rps, $retificaValor);
+
     //apresentação do retorno
     header("Content-type: text/xml");
     echo $response;

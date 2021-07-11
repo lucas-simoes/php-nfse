@@ -36,11 +36,19 @@ abstract class CartaCorrecaoNfseEnvio extends Factory
     /**
      * Método usado para gerar o XML do Soap Request
      * @param $versao
+     * @param $remetenteCNPJCPF,
+     * @param $inscricaoMunicipal,
      * @param $rps
+     * @param $nfseNumero
+     * @param $retificaValor
      * @return bool|string
      */
     abstract public function render(
         $versao,
-        $rps
+        $remetenteCNPJCPF,
+        $inscricaoMunicipal,
+        $nfseNumero,
+        $rps,
+        $retificaValor = false
     );
 }

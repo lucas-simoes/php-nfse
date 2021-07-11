@@ -213,23 +213,11 @@ class Tools extends ToolsBase
      * @param $rpss
      * @return string
      */
-    public function cartaCorrecaoNfseEnvio($lote, $rpss)
+    public function cartaCorrecaoNfseEnvio($nfseNumero, $rps, $retificaValor = false)
     {
         $class = "NFePHP\\NFSe\\Models\\Publica\\Factories\\v{$this->versao}\\CartaCorrecaoNfseEnvio";
         $fact = new $class($this->certificate);
 
-        return $this->cartaCorrecaoNfseEnvioCommon($fact, $lote, $rpss);
-    }
-
-    /**
-     * @param Factories\CartaCorrecaoNfseEnvio $fact
-     * @param $lote
-     * @param $rpss
-     * @param string $url
-     * @return string
-     */
-    protected function cartaCorrecaoNfseEnvioCommon(Factories\CartaCorrecaoNfseEnvio $fact, $lote, $rpss, $url = '')
-    {
         $this->method = 'CartaCorrecaoNfseEnvio';
         $fact->setXmlns($this->xmlns);
         $fact->setSchemeFolder($this->schemeFolder);
@@ -238,16 +226,16 @@ class Tools extends ToolsBase
         $fact->setTimezone($this->timezone);
         $message = $fact->render(
             $this->versao,
-            $this->remetenteTipoDoc,
             $this->remetenteCNPJCPF,
             $this->remetenteIM,
-            $lote,
-            $rpss
+            $nfseNumero,
+            $rps,
+            $retificaValor
         );
 
         // @header ("Content-Disposition: attachment; filename=\"NFSe_Lote.xml\"" );
         // echo $message;
         // exit;
-        return $this->sendRequest($url, $message);
+        return $this->sendRequest('', $message);
     }
 }

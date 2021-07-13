@@ -252,17 +252,19 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 ### PRODAM (BETA-TESTS)
 - São Paulo (SP) Nota: não tem ambiente de testes
 
+<<<<<<< HEAD
 ### Publica (BETA-TESTS)
 - Timóteo (MG) 
 - Caçador (SC) Integrado
 - Chapecó (SC) 
 - Itajaí (SC)  
 
-### SIGISS (BETA-TESTS)
-- Londrina (PR)
+### SIGISS SigCorp (BETA-TESTS) 
+- Londrina (PR) SIGISS SigCorp v1.03
 
 ### Simpliss Em desenvolvimento
 - São Joao da Boa Vista (SP)
+
 ## Install
 
 Via Composer

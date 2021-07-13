@@ -76,6 +76,8 @@ class Tools extends ToolsBase
      */
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         //Publica possui apenas uma URL
         if (!$url) {
             $url = $this->url[$this->config->tpAmb];

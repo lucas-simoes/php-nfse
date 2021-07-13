@@ -57,6 +57,8 @@ class Tools extends ToolsAbrasft
      */
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         //Abrasf possui apenas uma URL
         if (!$url) {
             $url = $this->url[$this->config->tpAmb];

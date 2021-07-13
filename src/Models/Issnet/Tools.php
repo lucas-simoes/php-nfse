@@ -44,6 +44,8 @@ class Tools extends ToolsBase
 
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         //no caso do ISSNET o URL é unico para todas as ações
         if (!$url) {
             $url = $this->url[$this->config->tpAmb];

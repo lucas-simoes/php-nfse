@@ -62,5 +62,6 @@ class Tools extends ToolsBase
 
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
     }
 }

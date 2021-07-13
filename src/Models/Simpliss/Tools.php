@@ -204,6 +204,8 @@ abstract class Tools extends ToolsBase
 
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         if (!$url) {
             $url = $this->url[$this->config->tpAmb];
         }

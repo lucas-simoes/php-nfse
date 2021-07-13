@@ -120,6 +120,10 @@ abstract class Tools
     protected $debugsoap = false;
 
     /**
+     * @var string
+     */
+    protected $xmlRequest = "";
+    /**
      * Constructor
      * @param stdClass $config
      * @param \NFePHP\Common\Certificate $certificate
@@ -207,5 +211,15 @@ abstract class Tools
     protected function stringTransform($message)
     {
         return EntitiesCharacters::unconvert(htmlentities($message, ENT_NOQUOTES));
+    }
+
+    /**
+     * Get the value of xmlRequest
+     *
+     * @return  string
+     */ 
+    public function getXmlRequest()
+    {
+        return $this->xmlRequest;
     }
 }

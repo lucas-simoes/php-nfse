@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories\v202;
+namespace NFePHP\NFSe\Models\Betha\Factories\v202;
 
 /**
  * Classe para a renderização dos RPS em XML
@@ -271,7 +271,7 @@ class RenderRps extends RenderRPSBase
             false,
             'DescontoCondicionado',
             false
-        );
+        );        
         self::$dom->appChild($servico, $valores, 'Adicionando tag Valores em Servico');
         //FIM Valores
 

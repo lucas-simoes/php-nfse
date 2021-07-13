@@ -1,11 +1,10 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories;
+namespace NFePHP\NFSe\Models\Betha;
 
-use NFePHP\NFSe\Models\Abrasf\NfseServicoPrestado;
-
-abstract class ConsultarNfseServicoPrestado extends Factory
+abstract class RecepcionarLoteRps extends Factory
 {
+
     protected $xmlns;
     protected $schemeFolder;
     protected $cmun;
@@ -13,11 +12,20 @@ abstract class ConsultarNfseServicoPrestado extends Factory
     /**
      * Método usado para gerar o XML do Soap Request
      * @param $versao
+     * @param $remetenteTipoDoc
+     * @param $remetenteCNPJCPF
+     * @param $inscricaoMunicipal
+     * @param $lote
+     * @param $rpss
      * @return mixed
      */
     abstract public function render(
         $versao,
-        NfseServicoPrestado $nsPrestado
+        $remetenteTipoDoc,
+        $remetenteCNPJCPF,
+        $inscricaoMunicipal,
+        $lote,
+        $rpss
     );
 
     /**

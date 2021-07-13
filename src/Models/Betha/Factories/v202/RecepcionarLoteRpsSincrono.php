@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories\v202;
+namespace NFePHP\NFSe\Models\Betha\Factories\v202;
 
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\NFSe\Models\Abrasf\Factories\RecepcionarLoteRps as RecepcionarLoteRpsBase;
@@ -44,7 +44,7 @@ class RecepcionarLoteRpsSincrono extends RecepcionarLoteRpsBase
         $loteRps->setAttribute('Id', "lote{$lote}");
         $loteRps->setAttribute('versao', '2.02');
 
-        $dom->appChild($root, $loteRps, 'Adicionando tag LoteRps a EnviarLoteRpsSincronoEnvio');
+        $dom->appChild($root, $loteRps, 'Adicionando tag LoteRps a EnviarLoteRpsEnvio');
 
 
         $dom->addChild(

@@ -1,41 +1,12 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories;
+namespace NFePHP\NFSe\Models\Betha\Factories\v202;
 
 use NFePHP\Common\DOMImproved as Dom;
-use NFePHP\NFSe\Models\Abrasf\Factories\v202\RenderRps;
+use NFePHP\NFSe\Models\Abrasf\Factories\GerarNfse as GerarNfseBase;
 
-abstract class GerarNfse extends Factory
+class GerarNfse extends GerarNfseBase
 {
-
-    protected $xmlns;
-    protected $schemeFolder;
-    protected $cmun;
-
-    /**
-     * @param $xmlns
-     */
-    public function setXmlns($xmlns)
-    {
-        $this->xmlns = $xmlns;
-    }
-
-    /**
-     * @param $schemeFolder
-     */
-    public function setSchemeFolder($schemeFolder)
-    {
-        $this->schemeFolder = $schemeFolder;
-    }
-
-    /**
-     * @param $cmun
-     */
-    public function setCodMun($cmun)
-    {
-        $this->cmun = $cmun;
-    }
-
     /**
      * Método usado para gerar o XML do Soap Request
      * @param $versao
@@ -62,7 +33,7 @@ abstract class GerarNfse extends Factory
         //Parse para XML
         $xml = substr(str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $dom->saveXML()), 1);
         $xml = $this->clear($xml);
-        $this->validar($versao, $xml, $this->schemeFolder, $xsd, '');
+        $this->validar($versao, $xml, $this->schemeFolder, $xsd, '');        
 
         return $xml;
     }

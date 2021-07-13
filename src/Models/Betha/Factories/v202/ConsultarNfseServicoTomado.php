@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories\v202;
+namespace NFePHP\NFSe\Models\Betha\Factories\v202;
 
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\NFSe\Models\Abrasf\NfseServicoTomado;
@@ -26,7 +26,7 @@ class ConsultarNfseServicoTomado extends Base
             //Adiciona as tags ao DOM
             $dom->appendChild($root);
 
-            //Cria os dados do consulente
+            //Cria os dados do Consulente
             $consulente = $dom->createElement('Consulente');
 
             /* CPF CNPJ */
@@ -46,7 +46,6 @@ class ConsultarNfseServicoTomado extends Base
                 "Cpf / Cnpj",
                 true
             );
-
             $dom->appChild($consulente, $cpfCnpj, 'Adicionando tag CpfCnpj ao Consulente');
             // //Adiciona a Inscrição Municipal na tag Consulente
             $dom->addChild(
@@ -72,6 +71,8 @@ class ConsultarNfseServicoTomado extends Base
             );
 
             if (!empty($nsTomado->infDataEmissaoInicial)) {
+
+
                 //Cria os dados do PeriodoEmissao
                 $periodoEmissao = $dom->createElement('PeriodoEmissao');
 
@@ -156,7 +157,6 @@ class ConsultarNfseServicoTomado extends Base
                 true
             );
 
-
             //Adiciona a tag Prestador a consulta
             $dom->appChild($root, $prestador, 'Adicionando tag Prestador');
 
@@ -180,7 +180,6 @@ class ConsultarNfseServicoTomado extends Base
                 "Cpf / Cnpj",
                 true
             );
-
             $dom->appChild($tomador, $cpfCnpj, 'Adicionando tag CpfCnpj ao Tomador');
             // //Adiciona a Inscrição Municipal na tag Tomador
             $dom->addChild(
@@ -227,7 +226,7 @@ class ConsultarNfseServicoTomado extends Base
                     'IM Intermediario',
                     false
                 );
-                $dom->appChild($root, $intermediario, 'Adicionando tag Intermediario em infnsTomado');
+                $dom->appChild($root, $intermediario, 'Adicionando tag Intermediario em infnsPrestado');
             }
 
             $dom->addChild(
@@ -241,8 +240,8 @@ class ConsultarNfseServicoTomado extends Base
 
             $body = $dom->saveXML();
             $body = $this->clear($body);
-            #echo '<pre>' . print_r($body) . '</pre>';die;
             $this->validar($versao, $body, $this->schemeFolder, $xsd, '');
+            #echo '<pre>' . print_r($body) . '</pre>';die;
 
             return $body;
         }

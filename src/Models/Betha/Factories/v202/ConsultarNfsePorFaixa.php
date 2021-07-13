@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\Models\Abrasf\Factories\v202;
+namespace NFePHP\NFSe\Models\Betha\Factories\v202;
 
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\NFSe\Models\Abrasf\Factories\SignerRps;
@@ -59,7 +59,7 @@ class ConsultarNfsePorFaixa extends ConsultarNfsePorFaixaBase
             true
         );
         $dom->appChild($prestador, $cpfCnpj, 'Adicionando tag CpfCnpj ao Prestador');
-        
+
         // //Adiciona a Inscrição Municipal na tag Prestador
         $dom->addChild(
             $prestador,
@@ -109,7 +109,7 @@ class ConsultarNfsePorFaixa extends ConsultarNfsePorFaixaBase
 
         $body = $dom->saveXML();
         $body = $this->clear($body);
-        #echo '<pre>'.print_r($body).'</pre>';die;
+        #echo '<pre>'.print_r($this->schemeFolder).'</pre>';die;
         $this->validar($versao, $body, $this->schemeFolder, $xsd, '');
 
         return $body;

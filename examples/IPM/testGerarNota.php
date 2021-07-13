@@ -5,7 +5,7 @@ require_once '../../bootstrap.php';
 
 
 use NFePHP\NFSe\Models\IPM\ItensRps;
-use NFePHP\NFSe\NFSeSemCertif;
+use NFePHP\NFSe\NFSe;
 use NFePHP\NFSe\Models\IPM\Rps;
 use NFePHP\NFSe\Models\IPM\SoapCurl;
 
@@ -41,7 +41,7 @@ try {
     
     #permite utilizar tanto para prefeituras que exigem ou nao certificados
     #$nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
-    $nfse = new NFSeSemCertif($configJson);
+    $nfse = new NFSe($configJson);
      
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());

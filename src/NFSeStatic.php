@@ -25,6 +25,8 @@ class NFSeStatic
 {
     /**
      * Instancia a classe usada na conversão dos arquivos txt em RPS
+     * Modificada por Tiago Franco para possibilitar
+     * uso pelos padroes que ainda não utilizam certificados digitais   
      * @param string $config
      * @return \NFePHP\NFSe\Counties\class
      */
@@ -80,10 +82,10 @@ class NFSeStatic
      * para um municipio em particular
      *
      * @param stdClass $config
-     * @param NFePHP\Common\Certificate $certificate
+     * @param NFePHP\Common\Certificate|null $certificate
      * @return \NFePHP\NFSe\Counties\class
      */
-    public static function tools(stdClass $config, Certificate $certificate)
+    public static function tools(stdClass $config, Certificate $certificate = null)
     {
         return self::classCheck(self::getClassName($config, 'Tools'), $config, $certificate);
     }

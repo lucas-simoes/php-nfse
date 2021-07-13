@@ -96,6 +96,9 @@ try {
     //envio do RPS
     $response = $nfse->tools->gerarNfse($rps);
     
+    //recupera o xml da request enviada ao webservices
+    #$response = $nfse->tools->getXmlRequest();
+    
     //apresentação do retorno
     header("Content-type: text/xml");
     echo $response;

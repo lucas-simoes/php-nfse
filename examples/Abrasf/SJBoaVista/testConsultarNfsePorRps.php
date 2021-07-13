@@ -33,7 +33,7 @@ $contentpfx = file_get_contents('/var/www/sped/sped-nfse/certs/certificado.pfx')
 try {
     //com os dados do config e do certificado já obtidos e desconvertidos
     //a sua forma original e só passa-los para a classe 
-    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'neoqeav'));
+    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());
     //caso o mode debug seja ativado serão salvos em arquivos 

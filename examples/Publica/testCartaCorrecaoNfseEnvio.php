@@ -30,13 +30,13 @@ $arr = [
 ];
 
 $configJson = json_encode($arr);
-$contentpfx = file_get_contents('/var/www/html/arquivos/Certificados/certs/23096.pfx');
+$contentpfx = file_get_contents('/var/www/sped/sped-nfse/certs/certificado.pfx'); 
 
 try {
     
     #permite utilizar tanto para prefeituras que exigem ou nao certificados
     #$nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
-    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'neoqeav'));
+    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
      
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());

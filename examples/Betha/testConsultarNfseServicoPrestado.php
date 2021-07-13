@@ -28,11 +28,11 @@ $arr = [
 ];
 
 $configJson = json_encode($arr);
-$contentpfx = file_get_contents('/var/www/html/arquivos/Certificados/certs/23096.pfx');
+$contentpfx = file_get_contents('/var/www/sped/sped-nfse/certs/certificado.pfx'); 
 
 try {
     
-    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'neoqeav'));
+    $nfse = new NFSe($configJson, Certificate::readPfx($contentpfx, 'senha'));
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());
     //caso o mode debug seja ativado serão salvos em arquivos 

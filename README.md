@@ -56,7 +56,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - ArrecadaNet
 - Assessor Público
 - AWATAR
-- BETHA
+- **BETHA - BETA-TESTS**
 - BOANF
 - BSIT-BR
 - Cecam
@@ -97,7 +97,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - INFISC – Santiago
 - INFISC – Sapucaia
 - INFISC Farroupilha
-- IPM
+- **IPM - BETA-TESTS**
 - ISISS
 - ISS Intel
 - ISS On-line Supernova
@@ -131,7 +131,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - Primax Online
 - **Prodam (NF Paulistana) - BETA-TESTS**
 - PRODATA
-- Pública
+- **Pública - BETA-TESTS**
 - RLZ
 - SAATRI
 - SEMFAZ
@@ -143,7 +143,8 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - SIGCORP Londrina
 - SIGCORP Rio Grande
 - SIGCORP São Gonçalo
-- SimplISS
+- **SIGISS - BETA-TESTS**
+- **SimplISS - Em desenvolvimento**
 - SJP
 - SMARAPD SIL Tecnologia
 - SMARAPD SIL Tecnologia WS
@@ -166,6 +167,40 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - Limeira (SP) ETransparencia
 - Itabira (MG) ABRASF (modificado)
 - São Jose dos Pinhais (PR) ABRASF (modificado)
+
+### BETHA (ALPHA-TESTS)
+- Cruzeiro do Sul (C)
+- Camaçari (BA)
+- Quirinópolis (GO)
+- Maracaju (MS)
+- Cornélio Procópio (PR)
+- Fazenda Rio Grande (PR)
+- Ortigueira (PR)
+- Paranavai (PR) Integrado
+- São Mateus do Sul (PR)
+- Resende (RJ)
+- Rio das Flores (RJ)
+- Gramado (RS)
+- Lagoa Vermelha (RS)
+- Palmeira das Missões (RS)
+- Três Passos (RS)
+- Biguaçu (SC)
+- Canoinhas (SC)
+- Criciúma (SC)
+- Curitibanos (SC)
+- Imbituba (SC)
+- Jaraguá do Sul (SC)
+- Joaçaba (SC)
+- Lages (SC)
+- Navegantes (SC)
+- São Lourenço do Oeste (SC)
+- São José (SC)
+- Schroeder (SC)
+- Gavião Peixoto (SP)
+- Guatapará (SP)
+- Jambeiro (SP)
+- Monte Alto (SP)
+- Orlândia (SP)
 
 ### DSFNET (ALPHA-TESTS)
 - Campinas (SP)
@@ -211,9 +246,23 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - Três Corações (MG) Nota: incompleto falta URL de produção	
 - Várzea Grande (MT) Nota: incompleto falta URL de produção
 
+### IPM (BETA-TESTS)
+- COLOMBO (PR)
+
 ### PRODAM (BETA-TESTS)
 - São Paulo (SP) Nota: não tem ambiente de testes
 
+### Publica (BETA-TESTS)
+- Timóteo (MG) 
+- Caçador (SC) Integrado
+- Chapecó (SC) 
+- Itajaí (SC)  
+
+### SIGISS (BETA-TESTS)
+- Londrina (PR)
+
+### Simpliss Em desenvolvimento
+- São Joao da Boa Vista (SP)
 ## Install
 
 Via Composer

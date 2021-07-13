@@ -252,7 +252,6 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 ### PRODAM (BETA-TESTS)
 - São Paulo (SP) Nota: não tem ambiente de testes
 
-<<<<<<< HEAD
 ### Publica (BETA-TESTS)
 - Timóteo (MG) 
 - Caçador (SC) Integrado

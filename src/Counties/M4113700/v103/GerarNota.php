@@ -230,10 +230,9 @@ class GerarNota extends Factory
                 'cod_pais_prestacao_servico',
                 $rps->infPaisPrestacaoServico,
                 true,
-                "Código do país em que o serviço foi prestado
-                (Tabela do,
-                [['attr' => 'xmlns', 'value' => '']] BACEN). ",
-                true
+                "Código do país em que o serviço foi prestado (Tabela do BACEN)",
+                true,
+                [['attr' => 'xmlns', 'value' => '']]
             );
         }
 

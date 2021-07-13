@@ -258,18 +258,18 @@ class RenderRps extends RenderRPSBase
         );
         self::$dom->addChild(
             $valores,
-            'DescontoCondicionado',
-            $rps->infDescontoCondicionado,
-            false,
-            'DescontoCondicionado',
-            false
-        );
-        self::$dom->addChild(
-            $valores,
             'DescontoIncondicionado',
             $rps->infDescontoIncondicionado,
             false,
             'DescontoIncondicionado',
+            false
+        );
+        self::$dom->addChild(
+            $valores,
+            'DescontoCondicionado',
+            $rps->infDescontoCondicionado,
+            false,
+            'DescontoCondicionado',
             false
         );
         self::$dom->appChild($servico, $valores, 'Adicionando tag Valores em Servico');

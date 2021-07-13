@@ -27,8 +27,34 @@ class Tools extends ToolsBase
     protected $schemeFolder = 'Abrasf';
     protected $params = [];
 
+    /**
+     * Consulta Lote
+     * @param string $nfseNumero
+     * @return string
+     */
     public function cancelarNfse($nfseNumero)
     {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\CancelarNfse";
+        $fact = new $class($this->certificate);
+        return $this->cancelarNfseCommon($fact, $nfseNumero);
+    }
+
+    /**
+     * @param $fact
+     * @param string $nfseNumero
+     * @param string $url
+     * @return string
+     */
+    protected function cancelarNfseCommon($fact, $nfseNumero, $url = '')
+    {
+        $this->method = 'CancelarNfse';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render($this->versao, $this->remetenteTipoDoc, $this->remetenteCNPJCPF, $this->remetenteIM, $nfseNumero);
+        return $this->sendRequest($url, $message);
     }
 
     /**
@@ -55,7 +81,7 @@ class Tools extends ToolsBase
         $fact->setXmlns($this->xmlns);
         $message = $fact->render($this->remetenteCNPJCPF, $this->remetenteIM, $protocolo);
         return $this->sendRequest($url, $message);
-
+        
     }
 
     /**
@@ -144,21 +170,138 @@ class Tools extends ToolsBase
         return $request;
     }
 
-    public function consultarNfsePorFaixa()
+    /**
+     * @param $numeroNfseInicial
+     * @param $numeroNfseFinal
+     * @param $pagina
+     * @return string
+     */
+    public function consultarNfsePorFaixa($numeroNfseInicial, $numeroNfseFinal, $pagina)
     {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\ConsultarNfsePorFaixa";
+        $fact = new $class($this->certificate);
+        return $this->consultarNfsePorFaixaCommon($fact, $numeroNfseInicial, $numeroNfseFinal, $pagina);
+    }
+    /**
+     * @param $fact
+     * @param $numeroNfseInicial
+     * @param $numeroNfseFinal
+     * @param $pagina
+     * @param string $url
+     * @return string
+     */
+    protected function consultarNfsePorFaixaCommon($fact, $numeroNfseInicial, $numeroNfseFinal, $pagina, $url = '')
+    {
+        $this->method = 'ConsultarNfseFaixa';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render(
+            $this->versao,
+            $this->remetenteTipoDoc,
+            $this->remetenteCNPJCPF,
+            $this->remetenteIM,
+            $numeroNfseInicial,
+            $numeroNfseFinal,
+            $pagina
+        );
+        return $this->sendRequest($url, $message);
     }
 
-    public function consultarNfsePorRps()
+    /**
+     * @param $numero
+     * @param $serie
+     * @param $tipo
+     * @param string $url
+     * @return string
+     */
+    public function consultarNfsePorRps($numero, $serie, $tipo)
     {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\ConsultarNfsePorRps";
+        $fact = new $class($this->certificate);
+        return $this->consultarNfsePorRpsCommon($fact, $numero, $serie, $tipo);
     }
 
-    public function consultarNfseServicoPrestado()
+    /**
+     * @param $fact
+     * @param $numero
+     * @param $serie
+     * @param $tipo
+     * @param string $url
+     * @return string
+     */
+    protected function consultarNfsePorRpsCommon($fact, $numero, $serie, $tipo,  $url = '')
     {
+        $this->method = 'ConsultarNfsePorRps';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render($this->versao, $this->remetenteTipoDoc, $this->remetenteCNPJCPF, $this->remetenteIM, $numero, $serie, $tipo);
+        return $this->sendRequest($url, $message);
     }
 
-    public function consultarNfseServicoTomado()
+    /**
+     * @param NfseServicoPrestado $nsPrestado   
+     * @param string $url
+     * @return string
+     */
+    public function consultarNfseServicoPrestado(NfseServicoPrestado $nsPrestado)
     {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\ConsultarNfseServicoPrestado";
+        $fact = new $class($this->certificate);
+        return $this->consultarNfseServicoPrestadoCommon($fact, $nsPrestado);
     }
+
+    /**
+     * @param $fact
+     * @param NfseServicoPrestado $nsPrestado
+     * @return string
+     */
+    public function consultarNfseServicoPrestadoCommon($fact, NfseServicoPrestado $nsPrestado, $url = '')
+    {
+        $this->method = 'ConsultarNfseServicoPrestado';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render($this->versao, $nsPrestado);
+        return $this->sendRequest($url, $message);
+    }
+
+    /**
+     * @param NfseServicoTomado $nsTomado   
+     * @param string $url
+     * @return string
+     */
+    public function consultarNfseServicoTomado(NfseServicoTomado $nsTomado)
+    {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\ConsultarNfseServicoTomado";
+        $fact = new $class($this->certificate);
+        return $this->consultarNfseServicoTomadoCommon($fact, $nsTomado);
+    }
+
+    /**
+     * @param $fact
+     * @param NfseServicoTomado $nsTomado
+     * @return string
+     */
+    public function consultarNfseServicoTomadoCommon($fact, NfseServicoTomado $nsTomado, $url = '')
+    {
+        $this->method = 'ConsultarNfseServicoTomado';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render($this->versao, $nsTomado);
+        return $this->sendRequest($url, $message);
+    }
+
 
     /**
      * @param $rps
@@ -242,11 +385,49 @@ class Tools extends ToolsBase
         // echo $message;
         // exit;
         return $this->sendRequest($url, $message);
-
     }
 
-    public function recepcionarLoteRpsSincrono()
+    /**
+     * @param $lote
+     * @param $rpss
+     * @return string
+     */
+    public function recepcionarLoteRpsSincrono($lote, $rpss)
     {
+        $class = "NFePHP\\NFSe\\Models\\Abrasf\\Factories\\v{$this->versao}\\RecepcionarLoteRps";
+        $fact = new $class($this->certificate);
+
+        return $this->recepcionarLoteRpsSincronoCommon($fact, $lote, $rpss);
+    }
+
+    /**
+     * @param Factories\RecepcionarLoteRps $fact
+     * @param $lote
+     * @param $rpss
+     * @param string $url
+     * @return string
+     */
+    protected function recepcionarLoteRpsSincronoCommon(Factories\RecepcionarLoteRps $fact, $lote, $rpss, $url = '')
+    {
+        $this->method = 'RecepcionarLoteRpsSincrono';
+        $fact->setXmlns($this->xmlns);
+        $fact->setSchemeFolder($this->schemeFolder);
+        $fact->setCodMun($this->config->cmun);
+        $fact->setSignAlgorithm($this->algorithm);
+        $fact->setTimezone($this->timezone);
+        $message = $fact->render(
+            $this->versao,
+            $this->remetenteTipoDoc,
+            $this->remetenteCNPJCPF,
+            $this->remetenteIM,
+            $lote,
+            $rpss
+        );
+
+        // @header ("Content-Disposition: attachment; filename=\"NFSe_Lote.xml\"" );
+        // echo $message;
+        // exit;
+        return $this->sendRequest($url, $message);
     }
 
     public function substituirNfse()

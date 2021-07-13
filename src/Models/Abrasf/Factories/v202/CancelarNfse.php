@@ -2,11 +2,11 @@
 
 namespace NFePHP\NFSe\Models\Abrasf\Factories\v202;
 
-use NFePHP\NFSe\Models\Abrasf\Factories\Factory;
+use NFePHP\NFSe\Models\Abrasf\Factories\CancelarNfse as CancelarNfseBase;
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\NFSe\Models\Abrasf\Factories\Signer;
 
-class CancelarNfse extends Factory
+class CancelarNfse extends CancelarNfseBase
 {
     /**
      * Método usado para gerar o XML do Soap Request
@@ -22,17 +22,15 @@ class CancelarNfse extends Factory
         $remetenteCNPJCPF,
         $inscricaoMunicipal,
         $nfseNumero
-    ) 
-    {
+    ) {
         $method = 'CancelarNfseEnvio';
-        $xsd = "servico_cancelar_nfse_envio";
-
+        $xsd = "nfse_v{$versao}";
 
         $dom = new Dom('1.0', 'utf-8');
         $dom->formatOutput = false;
         //Cria o elemento pai
         $root = $dom->createElement('CancelarNfseEnvio');
-        //$root->setAttribute('xmlns', $this->xmlns);
+        $root->setAttribute('xmlns', $this->xmlns);
 
         //Adiciona as tags ao DOM
         $dom->appendChild($root);
@@ -40,23 +38,24 @@ class CancelarNfse extends Factory
         $loteRps = $dom->createElement('Pedido');
 
         $dom->appChild($root, $loteRps, 'Adicionando tag Pedido');
-        
+
         $InfPedidoCancelamento = $dom->createElement('InfPedidoCancelamento');
+        $InfPedidoCancelamento->setAttribute('Id', $nfseNumero);
 
         $dom->appChild(
             $loteRps,
             $InfPedidoCancelamento,
             "Inf Pedido Cancelamento"
         );
-        
+
         $identificacaoNfse = $dom->createElement('IdentificacaoNfse');
-        
+
         $dom->appChild(
             $InfPedidoCancelamento,
             $identificacaoNfse,
             'Identificação da Nfse'
         );
-        
+
         /* Inscrição Municipal */
         $dom->addChild(
             $identificacaoNfse,
@@ -95,17 +94,17 @@ class CancelarNfse extends Factory
             "Inscricao Municipal",
             false
         );
-        
+
         /* Código do Municipio */
         $dom->addChild(
             $identificacaoNfse,
             'CodigoMunicipio',
-            $this->codMun,
+            $this->cmun,
             false,
             "Código Municipio",
             false
         );
-        
+
         /* Código do Cancelamento */
         $dom->addChild(
             $InfPedidoCancelamento,
@@ -130,8 +129,7 @@ class CancelarNfse extends Factory
             true
         );
         $body = $this->clear($body);
-        
-        //$this->validar($versao, $body, $this->schemeFolder, $xsd, '');
+        $this->validar($versao, $body, $this->schemeFolder, $xsd, '');
 
         return $body;
     }

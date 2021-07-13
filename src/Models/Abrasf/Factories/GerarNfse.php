@@ -3,7 +3,7 @@
 namespace NFePHP\NFSe\Models\Abrasf\Factories;
 
 use NFePHP\Common\DOMImproved as Dom;
-use NFePHP\NFSe\Models\Goiania\Factories\v02\RenderRps;
+use NFePHP\NFSe\Models\Abrasf\Factories\v202\RenderRps;
 
 abstract class GerarNfse extends Factory
 {

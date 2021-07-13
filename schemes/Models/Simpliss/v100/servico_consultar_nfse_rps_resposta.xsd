@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.abrasf.org.br/nfse" targetNamespace="http://www.abrasf.org.br/nfse" elementFormDefault="qualified" attributeFormDefault="unqualified">    
+	<xsd:element name="ConsultarNfseRpsResposta">
+        <xsd:complexType>
+            <xsd:choice>
+                <xsd:element name="CompNfse" type="tcCompNfse" minOccurs="1" maxOccurs="1" />
+                <xsd:element ref="ListaMensagemRetorno" minOccurs="1" maxOccurs="1" />
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+
+

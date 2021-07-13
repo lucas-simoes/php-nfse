@@ -191,6 +191,8 @@ class Tools extends ToolsBase
      */
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         try {
             #cria o arquivo com o conteudo xml
             $tmpfname = tempnam(sys_get_temp_dir(), "xml");

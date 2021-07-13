@@ -3,7 +3,7 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 'On');
 require_once '../../../bootstrap.php';
 
-use NFePHP\NFSe\NFSeSemCertif;
+use NFePHP\NFSe\NFSe;
 use NFePHP\NFSe\Counties\M4113700\Rps;
 use NFePHP\NFSe\Models\SIGISS\SoapCurl;
 
@@ -29,7 +29,7 @@ $configJson = json_encode($arr);
 
 try {
 
-    $nfse = new NFSeSemCertif($configJson);
+    $nfse = new NFSe($configJson);
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());
     //caso o mode debug seja ativado serão salvos em arquivos 

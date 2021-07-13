@@ -4,7 +4,8 @@ namespace NFePHP\NFSe;
 
 /**
  * Classe para a instanciação das classes especificas de cada municipio
- * atendido pela API
+ * atendido pela API, modificada por Tiago Franco para possibilitar
+ * uso pelos padroes que ainda não utilizam certificados digitais
  *
  * @category  NFePHP
  * @package   NFePHP\NFSe\NFSe
@@ -28,9 +29,9 @@ class NFSe
     /**
      * Construtor da classe
      * @param string $config Path to file or string Json
-     * @param NFePHP\Common\Certificate $certificate
+     * @param NFePHP\Common\Certificate|null $certificate
      */
-    public function __construct($config, Certificate $certificate)
+    public function __construct($config, Certificate $certificate = null)
     {
         if (is_file($config)) {
             $config = file_get_contents($config);

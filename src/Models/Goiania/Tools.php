@@ -59,6 +59,8 @@ class Tools extends ToolsAbrasft
 
     protected function makeRequest($message)
     {
+        $this->xmlRequest = $message;
+        
         $this->params = [
             "Content-Type: text/xml;charset=utf-8;",
         ];

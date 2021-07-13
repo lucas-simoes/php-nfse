@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 require_once '../../bootstrap.php';
 
 
-use NFePHP\NFSe\NFSeSemCertif;
+use NFePHP\NFSe\NFSe;
 use NFePHP\NFSe\Models\IPM\CancelarRps;
 use NFePHP\NFSe\Models\IPM\SoapCurl;
 
@@ -37,7 +37,7 @@ $configJson = json_encode($arr);
 
 try {
 
-    $nfse = new NFSeSemCertif($configJson);
+    $nfse = new NFSe($configJson);
      
     //Por ora apenas o SoapCurl funciona com IssNet
     $nfse->tools->loadSoapClass(new SoapCurl());

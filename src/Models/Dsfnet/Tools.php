@@ -59,6 +59,8 @@ class Tools extends ToolsBase
      */
     protected function sendRequest($url, $message)
     {
+        $this->xmlRequest = $message;
+        
         return $message;
         /*
         $url = $this->url[$this->config->tpAmb];

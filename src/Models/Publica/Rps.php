@@ -44,8 +44,12 @@ class Rps extends RpsBase
     const NATUREZA_EXTERNA = 2;  //Tributação fora do município
     const NATUREZA_ISENTA = 3; //Isenção
     const NATUREZA_IMUNE = 4; //Imune
-    const NATUREZA_SUSPENSA_JUS = 5; //Exigibilidade suspensa por decisão judicial
-    const NATUREZA_SUSPENSA_ADMIN = 6; //Exigibilidade suspensa por procedimento administrativo
+    const NATUREZA_RETIDO_TOMADOR = 9; //ISS retido pelo tomador
+    const NATUREZA_FIXO = 10; //ISS FIXO
+    const NATUREZA_INTERNA_SN = 11; //ISS devido para Caçador (Simples Nacional)
+    const NATUREZA_EXTERNA_SN = 12; //ISS devido para outro Município (Simples Nacional)
+    const NATUREZA_MEI = 13; //MEI
+    const NATUREZA_RETIDO_TOMADOR_SN = 14; //ISS retido tomador (Simples Nacional) 
 
     const SIM = 1;
     const NAO = 2;
@@ -67,7 +71,7 @@ class Rps extends RpsBase
      * @var array
      */
     public $infTomadorEndereco = [
-        'end' => '',    
+        'end' => '',
         'numero' => '',
         'complemento' => '',
         'bairro' => '',
@@ -90,7 +94,7 @@ class Rps extends RpsBase
     /**
      * @var array
      */
-    public $infIntermediario = ['tipo' => '','cnpjcpf' => '', 'im' => '', 'razao' => ''];
+    public $infIntermediario = ['tipo' => '', 'cnpjcpf' => '', 'im' => '', 'razao' => ''];
     /**
      * @var array
      */
@@ -216,7 +220,7 @@ class Rps extends RpsBase
      * @var string
      */
     public $infCodigoMunicipio;
-     /**
+    /**
      * @var string
      */
     public $infCodigoPais;
@@ -242,9 +246,9 @@ class Rps extends RpsBase
      */
     public function prestador($cnpjcpf, $im)
     {
-        $this->infPrestador = [     
+        $this->infPrestador = [
             'cnpjcpf' => $cnpjcpf,
-            'im' => $im            
+            'im' => $im
         ];
     }
 
@@ -291,7 +295,7 @@ class Rps extends RpsBase
             'cep' => $cep,
             'cod_pais' => $cod_pais,
             'nome_municipio' => $nome_municipio
-        ];         
+        ];
     }
 
     /**
@@ -455,12 +459,12 @@ class Rps extends RpsBase
     public function naturezaOperacao($value = self::NATUREZA_INTERNA, $campo = null)
     {
         if (!$campo) {
-            $msg = "A natureza da operação deve estar entre 1 e 6.";
+            $msg = "A natureza da operação deve ser 1,2,3,4,9,10,11,12,13,14.";
         } else {
-            $msg = "O item '$campo' deve estar entre 1 e 6. Informado: '$value'";
+            $msg = "O item '$campo' deve ser 1,2,3,4,9,10,11,12,13,14. Informado: '$value'";
         }
 
-        if (!Validator::numeric()->intVal()->between(1, 6)->validate($value)) {
+        if (!in_array($value, [1, 2, 3, 4, 9, 10, 11, 12, 13, 14])) {
             throw new \InvalidArgumentException($msg);
         }
         $this->infNaturezaOperacao = $value;
@@ -952,8 +956,9 @@ class Rps extends RpsBase
         }
         $this->infCodigoPais = $value;
     }
-    
-    public function addParcela($condicao, $parcela, $valor, DateTime $dataVencimento) {
+
+    public function addParcela($condicao, $parcela, $valor, DateTime $dataVencimento)
+    {
         $this->infCondicaoPagamento['parcelas'][] = [
             'condicao' => $condicao,
             'parcela' => $parcela,
@@ -961,8 +966,8 @@ class Rps extends RpsBase
             'data_vencimento' => $dataVencimento
         ];
     }
-    
-    public function addItemDiscriminacao($descricao, $itemServico, $aliquota, $qtde, $valorUnitario, $deducoes = '', $descontoCondicionado = '', $descontoIncondicionado = '') 
+
+    public function addItemDiscriminacao($descricao, $itemServico, $aliquota, $qtde, $valorUnitario, $deducoes = '', $descontoCondicionado = '', $descontoIncondicionado = '')
     {
         $item = [
             'Descricao' => $descricao,
@@ -972,13 +977,13 @@ class Rps extends RpsBase
             'ValorUnitario' => $valorUnitario
         ];
 
-        if(!empty($deducoes)) {
+        if (!empty($deducoes)) {
             $item['Deducoes'] = $deducoes;
         }
-        if(!empty($descontoCondicionado)) {
+        if (!empty($descontoCondicionado)) {
             $item['DescontoCondicionado'] = $descontoCondicionado;
         }
-        if(!empty($descontoIncondicionado)) {
+        if (!empty($descontoIncondicionado)) {
             $item['DescontoIncondicionado'] = $descontoIncondicionado;
         }
         $this->infDiscriminacao[] = $item;
@@ -994,7 +999,7 @@ class Rps extends RpsBase
         if (!$campo) {
             $msg = "A discriminação é obrigatória e deve ter no máximo 2000 caracteres.";
         } else {
-            $msg = "O item '$campo' é obrigatória e deve ter no máximo 2000 caracteres. Informado: ".strlen($value)." caracteres";
+            $msg = "O item '$campo' é obrigatória e deve ter no máximo 2000 caracteres. Informado: " . strlen($value) . " caracteres";
         }
 
         $value = trim($value);
@@ -1045,7 +1050,7 @@ class Rps extends RpsBase
         if (!$campo) {
             $msg = "A discriminação é obrigatória e deve ter no máximo 9 caracteres.";
         } else {
-            $msg = "O item '$campo' é obrigatória e deve ter no máximo 9 caracteres. Informado: ".strlen($value)." caracteres";
+            $msg = "O item '$campo' é obrigatória e deve ter no máximo 9 caracteres. Informado: " . strlen($value) . " caracteres";
         }
 
         $value = trim($value);

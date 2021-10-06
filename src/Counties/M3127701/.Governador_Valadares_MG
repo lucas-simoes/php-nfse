@@ -1,0 +1,9 @@
+Governador Valadares MG
+https://valadares.sigiss.com.br/valadares/index.php
+IBGE: 3127701
+SIAF: 4553
+Padrão: SIGISS SigCorp
+SOAP Version: 1.1
+URL Homologação: https://valadares.sigiss.com.br/testevaladares/ws/sigiss_ws.php?wsdl
+URL Produção: https://valadares.sigiss.com.br:443/valadares/ws/sigiss_ws.php?wsdl
+xmlns: https://valadares.sigiss.com.br/valadares/ws/sigiss_ws.php?wsdl

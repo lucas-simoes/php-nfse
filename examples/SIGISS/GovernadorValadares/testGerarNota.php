@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 require_once '../../../bootstrap.php';
 
 use NFePHP\NFSe\NFSe;
-use NFePHP\NFSe\Counties\M4113700\Rps;
+use NFePHP\NFSe\Counties\M3127701\Rps;
 use NFePHP\NFSe\Models\SIGISS\SoapCurl;
 
 

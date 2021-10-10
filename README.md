@@ -260,6 +260,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 
 ### SIGISS SigCorp (BETA-TESTS) 
 - Londrina (PR) SIGISS SigCorp v1.03
+- Governador Valadares (MG) Sigicorp
 
 ### Simpliss Em desenvolvimento
 - São Joao da Boa Vista (SP)

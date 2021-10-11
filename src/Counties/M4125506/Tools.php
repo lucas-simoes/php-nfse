@@ -144,7 +144,7 @@ class Tools extends ToolsAbrasf
      */
     public function consultarSituacaoLoteRps($protocolo)
     {
-        $class = "NFePHP\\NFSe\\Counties\\M4125506\\v{$this->versao}\cConsultarSituacaoLoteRps";
+        $class = "NFePHP\\NFSe\\Counties\\M4125506\\v{$this->versao}\ConsultarSituacaoLoteRps";
         $fact = new $class($this->certificate);
         return $this->consultarSituacaoLoteRpsCommon($fact, $protocolo);
     }

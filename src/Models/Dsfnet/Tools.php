@@ -60,6 +60,7 @@ class Tools extends ToolsBase
     protected function sendRequest($url, $message)
     {
         $this->xmlRequest = $message;
+
         //Dsfnet so possui producao
         if (!$url) {
             $url = $this->url[1];

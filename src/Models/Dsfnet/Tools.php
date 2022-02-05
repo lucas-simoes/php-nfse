@@ -60,67 +60,45 @@ class Tools extends ToolsBase
     protected function sendRequest($url, $message)
     {
         $this->xmlRequest = $message;
-        
-        return $message;
-        /*
-        $url = $this->url[$this->config->tpAmb];
+        //Dsfnet so possui producao
+        if (!$url) {
+            $url = $this->url[1];
+        }
+
         if (!is_object($this->soap)) {
-            $this->soap = new \NFePHP\NFSe\Common\SoapCurl($this->certificate);
+            $this->soap = new SoapCurl($this->certificate);
         }
-        //para usar o cURL quando está estabelecido o uso do CData na estrutura
-        //do xml, terá de haver uma transformação, porém no caso do SoapNative isso
-        //não é necessário, pois o próprio SoapClient faz essas transformações,
-        //baseado no WSDL.
-        if (is_a($this->soap, 'NFePHP\Common\Soap\SoapCurl') && $this->withcdata) {
-            $messageText = $this->stringTransform($message);
-            $request = "<$this->method soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
-                . "<mensagemXml xsi:type=\"xsd:string\">"
-                . $messageText
-                . "</mensagemXml>"
-                . "</$this->method>";
-        } else {
-            $params = [
-                'mensagemXml' => $message
-            ];
-        }
-        $action = "\"$this->xmlns/LoteRps/". $this->method ."Request\"";
+        //formata o xml da mensagem para o padão esperado pelo webservice
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = false;
+        $dom->loadXML($message);
+
+        $message = str_replace('<?xml version="1.0"?>', '', $dom->saveXML());
+
+        $messageText = '<proc:'.$this->method.' soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">';
+        $messageText.= '<mensagemXml xsi:type="xsd:string"><![CDATA['.$message.']]></mensagemXml>';
+        $messageText.= '</proc:'.$this->method.'>';
+        
+        $this->params = [
+            'POST /WsNFe2/LoteRps.jws HTTP/1.1',
+            'Host: www.issdigitalsod.com.br',
+            'Content-Type: text/xml; charset=utf-8',
+            'SOAPAction: "https://www.issdigitalsod.com.br/WsNFe2/LoteRps.jws/LoteRps/'.$this->method.'"'
+        ];
+    
+        $action = '';
+
+        //Realiza o request SOAP
         return $this->soap->send(
             $url,
             $this->method,
             $action,
             $this->soapversion,
-            $params,
-            $this->namespaces[$this->soapversion]
+            $this->params,
+            $this->namespaces[$this->soapversion],
+            $messageText
         );
-
-        */
-
-        /*
-        $request = "<dsf:$this->method>";
-        $request .= "<mensagemXML>$body</mensagemXML>";
-        $request .= "</dsf:$this->method>";
-        if ($this->withcdata === true) {
-            $param = ['soapenv:encodingStyle', 'http://schemas.xmlsoap.org/soap/encoding/'];
-            $request = $this->replaceNodeWithCdata($request, 'mensagemXML', $body, $param);
-        }
-        $envelope = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soapenv:Envelope "
-                . "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-                . "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" "
-                . "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" "
-                . "xmlns:dsf=\"$this->xmlns\">"
-                . "<soapenv:Body>"
-                . $request
-                . "</soapenv:Body>"
-                . "</soapenv:Envelope>";
-
-        $messageSize = strlen($envelope);
-        $parametros = array(
-            'Content-Type: application/soap+xml;charset=utf-8',
-            'SOAPAction: "'.$this->method.'"',
-            "Content-length: $messageSize");
-
-        return $envelope;
-         */
     }
 
     /**
@@ -216,9 +194,10 @@ class Tools extends ToolsBase
      *
      * @param array $rpss
      * @param string $numeroLote
+     * @param string $transacao
      * @return string
      */
-    public function enviar($rpss, $numeroLote)
+    public function enviar($rpss, $numeroLote, $transacao = true)
     {
         $this->method = 'enviar';
         $fact = new Factories\Enviar($this->certificate);
@@ -227,7 +206,7 @@ class Tools extends ToolsBase
             $this->versao,
             $this->remetenteCNPJCPF,
             $this->remetenteRazao,
-            null,
+            $transacao,
             $this->codcidade,
             $rpss,
             $numeroLote

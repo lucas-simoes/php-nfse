@@ -1,0 +1,8 @@
+Bage RS
+IBGE: 4301602
+SIAF: 3945
+Padrão: ABRASF v 2.02
+SOAP Version: 1.1
+URL Homologação: https://www1.webiss.com.br/bagers_wsnfse/NfseServices.svc?wsdl
+URL Produção: https://www1.webiss.com.br/BageRS_wsNFSe_homolog/NfseServices.svc?wsdl
+xmlns: http://www.abrasf.org.br/nfse.xsd

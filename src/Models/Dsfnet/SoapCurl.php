@@ -11,8 +11,8 @@ use NFePHP\Common\Exception\SoapException;
  *
  * @author Tiago Franco
  */
-class SoapCurl extends SoapBase 
-{   
+class SoapCurl extends SoapBase
+{
     /**
      * Comunica com os servidores IPM via REST
      * @param string $url
@@ -56,7 +56,7 @@ class SoapCurl extends SoapBase
         $this->requestBody = $envelope;
         try {
             $oCurl = curl_init();
-            #$this->setCurlProxy($oCurl);
+            $this->setCurlProxy($oCurl);
             curl_setopt($oCurl, CURLOPT_URL, $url);
             curl_setopt($oCurl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
             curl_setopt($oCurl, CURLOPT_CONNECTTIMEOUT, $this->soaptimeout);
@@ -119,5 +119,36 @@ class SoapCurl extends SoapBase
             throw SoapException::soapFault($msg, $httpcode);
         }
         return $this->responseBody;
+    }
+
+    /**
+     * Extrai mensagem da liste de erros HTTP
+     * @param integer $code
+     * @return string
+     */
+    private function getCodeMessage($code)
+    {
+        $codes = json_decode(file_get_contents(__DIR__.'/httpcodes.json'), true);
+        if (!empty($codes[$code])) {
+            return $codes[$code]['description'];
+        }
+        return "Erro desconhecido.";
+    }
+
+    /**
+     * Set proxy into cURL parameters
+     * @param resource $oCurl
+     */
+    private function setCurlProxy(&$oCurl)
+    {
+        if ($this->proxyIP != '') {
+            curl_setopt($oCurl, CURLOPT_HTTPPROXYTUNNEL, 1);
+            curl_setopt($oCurl, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+            curl_setopt($oCurl, CURLOPT_PROXY, $this->proxyIP . ':' . $this->proxyPort);
+            if ($this->proxyUser != '') {
+                curl_setopt($oCurl, CURLOPT_PROXYUSERPWD, $this->proxyUser . ':' . $this->proxyPass);
+                curl_setopt($oCurl, CURLOPT_PROXYAUTH, CURLAUTH_BASIC);
+            }
+        }
     }
 }

@@ -77,9 +77,9 @@ class Tools extends ToolsBase
 
         $message = str_replace('<?xml version="1.0"?>', '', $dom->saveXML());
 
-        $messageText = '<proc:'.$this->method.' soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">';
+        $messageText = '<'.$this->method.' soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">';
         $messageText.= '<mensagemXml xsi:type="xsd:string"><![CDATA['.$message.']]></mensagemXml>';
-        $messageText.= '</proc:'.$this->method.'>';
+        $messageText.= '</'.$this->method.'>';
         
         $this->params = [
             'POST /WsNFe2/LoteRps.jws HTTP/1.1',

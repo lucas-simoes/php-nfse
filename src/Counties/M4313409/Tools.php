@@ -26,7 +26,7 @@ class Tools extends ToolsModel
      * @var array
      */
     protected $url = [
-        1 => '',
+        1 => 'http://www.issnetonline.com.br/webserviceabrasf/novohamburgo/servicos.asmx',
         2 => 'http://www.issnetonline.com.br/webserviceabrasf/homologacao/servicos.asmx'
     ];
     /**

@@ -278,7 +278,3 @@ $ composer require lucas-simoes/php-nfse:dev-master
 ## Security
 
 Caso você encontre algum problema relativo a segurança, por favor envie um email diretamente aos mantenedores do pacote ao invés de abrir um ISSUE.
-
-## Credits
-
-- Lucas Simões <lucas_development@outlook.com>

@@ -151,7 +151,7 @@ do fluxo de emissão desta mesma execução de teste.
 > T028 e T029 foram movidos para Phase 2 (antes de T017 e T009 respectivamente) para cumprir Princípio III — Red-Green-Refactor.
 
 - [x] T030 Atualizar `src/NFSeStatic.php` (método `tools()`) para reconhecer Padrão Nacional: antes da resolução `Counties/M{cmun}`, verificar se `$config->padraoNacional ?? false` é `true` ou se `($config->cmun ?? '') === '0000000'`, e se sim retornar `new \NFePHP\NFSe\Providers\Nacional\Nacional(new ConfiguracaoNacional(...))` — sem alterar nenhum outro comportamento existente (conforme `plan.md` §Integração na Factory)
-- [ ] T031 [P] Rodar `vendor/bin/phpstan analyse src/Providers/Nacional/ --level=8` e corrigir todos os erros de tipo apontados
+- [x] T031 [P] Rodar `vendor/bin/phpstan analyse src/Providers/Nacional/ --level=8` e corrigir todos os erros de tipo apontados
 - [ ] T032 [P] Rodar `vendor/bin/php-cs-fixer fix src/Providers/Nacional/ tests/Providers/Nacional/` e verificar conformidade PSR-12
 - [ ] T033 Criar `NacionalProviderIntegrationTest.php` em `tests/Providers/Nacional/Integration/NacionalProviderIntegrationTest.php`: testes de emissão, consulta e cancelamento contra ADN homologação (`hom.nfse.gov.br`); marcar classe com `@group nacional-integration` para execução separada da CI principal; testes requerem variável de ambiente `CERT_PATH` e `CERT_PASSWORD`
 - [ ] T034 [P] Validar fluxo do `quickstart.md`: executar os snippets de código do quickstart em ambiente de homologação e confirmar que todos os passos funcionam conforme documentado; atualizar quickstart se necessário

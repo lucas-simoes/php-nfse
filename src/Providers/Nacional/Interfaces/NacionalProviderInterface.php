@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace NFePHP\NFSe\Providers\Nacional\Interfaces;
 
-use NFePHP\NFSe\Providers\Nacional\Models\Dps;
-use NFePHP\NFSe\Providers\Nacional\Responses\RespostaEmissao;
-use NFePHP\NFSe\Providers\Nacional\Responses\RespostaConsulta;
-use NFePHP\NFSe\Providers\Nacional\Responses\RespostaCancelamento;
 use NFePHP\NFSe\Providers\Nacional\Exceptions\NacionalException;
+use NFePHP\NFSe\Providers\Nacional\Models\Dps;
+use NFePHP\NFSe\Providers\Nacional\Responses\RespostaCancelamento;
+use NFePHP\NFSe\Providers\Nacional\Responses\RespostaConsulta;
+use NFePHP\NFSe\Providers\Nacional\Responses\RespostaEmissao;
 
 interface NacionalProviderInterface
 {

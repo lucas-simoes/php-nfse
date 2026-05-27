@@ -234,7 +234,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - Nobres (MT) Nota: incompleto falta URL de produção
 - Nova Alvorada do Sul (MS) Nota: incompleto falta URL de produção
 - Nova Olimpia (MT) Nota: incompleto falta URL de produção
-- Novo Hamburgo (RS) Nota: incompleto falta URL de produção
+- Novo Hamburgo (RS)
 - Praia Grande (SP) Nota: incompleto falta URL de produção
 - Ribeirão Preto (SP) : ABRASF (modificado)
 - Rio Brilhante (MS) Nota: incompleto falta URL de produção

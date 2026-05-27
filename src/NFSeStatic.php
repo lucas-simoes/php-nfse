@@ -79,14 +79,50 @@ class NFSeStatic
 
     /**
      * Instancia a classe usada na comunicação com o webservice
-     * para um municipio em particular
+     * para um municipio em particular.
+     *
+     * Reconhece o Padrão Nacional NFS-e (ADN) quando:
+     *   - $config->padraoNacional === true, OU
+     *   - $config->cmun === '0000000' (código sentinela para o Padrão Nacional)
+     *
+     * Nesse caso retorna um Nacional configurado via ConfiguracaoNacional.
+     * Para todos os demais municípios, mantém o fluxo SOAP legado inalterado.
+     *
+     * Fontes de certificado (em ordem de preferência):
+     *   1. $config->certificadoP12 (binário P12) + $config->senhaCertificado
+     *   2. $certificate->writePfx() com senha temporária (fallback quando apenas
+     *      o objeto Certificate é fornecido)
      *
      * @param stdClass $config
      * @param NFePHP\Common\Certificate|null $certificate
-     * @return \NFePHP\NFSe\Counties\class
+     * @return \NFePHP\NFSe\Providers\Nacional\Nacional|\NFePHP\NFSe\Counties\class
      */
     public static function tools(stdClass $config, Certificate $certificate = null)
     {
+        // Detectar Padrão Nacional antes de resolver Counties/M{cmun}
+        if (!empty($config->padraoNacional) || ($config->cmun ?? '') === '0000000') {
+            // Fonte 1: P12 raw binary já presente no $config (uso mais comum)
+            $certificadoP12   = $config->certificadoP12   ?? '';
+            $senhaCertificado = $config->senhaCertificado ?? '';
+
+            // Fonte 2: Certificate object (fallback — reconstrói P12 com senha temporária)
+            if ($certificadoP12 === '' && $certificate !== null) {
+                $tempPassword     = bin2hex(random_bytes(16));
+                $certificadoP12   = $certificate->writePfx($tempPassword);
+                $senhaCertificado = $tempPassword;
+            }
+
+            return new \NFePHP\NFSe\Providers\Nacional\Nacional(
+                new \NFePHP\NFSe\Providers\Nacional\ConfiguracaoNacional(
+                    certificadoP12:   $certificadoP12,
+                    senhaCertificado: $senhaCertificado,
+                    ambiente:         (int) ($config->tpAmb   ?? \NFePHP\NFSe\Providers\Nacional\ConfiguracaoNacional::HOMOLOGACAO),
+                    timeout:          (int) ($config->timeout  ?? 30),
+                )
+            );
+        }
+
+        // Fluxo SOAP legado — nenhuma alteração
         return self::classCheck(self::getClassName($config, 'Tools'), $config, $certificate);
     }
 

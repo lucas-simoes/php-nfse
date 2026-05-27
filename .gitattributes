@@ -1,0 +1,6 @@
+# Ignora pastas de ferramentas de IA e Especificação no zip gerado pelo Composer
+/.speckit               export-ignore
+/CLAUDE.md              export-ignore
+/.claude                export-ignore
+/tests                  export-ignore
+/specs                  export-ignore

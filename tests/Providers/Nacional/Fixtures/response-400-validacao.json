@@ -1,0 +1,14 @@
+{
+  "erros": [
+    {
+      "codigo": "E001",
+      "mensagem": "CNPJ do emitente inválido",
+      "campo": "infDPS.emit.CNPJ"
+    },
+    {
+      "codigo": "E045",
+      "mensagem": "Código de tributação nacional não encontrado",
+      "campo": "infDPS.serv.cServ.cTribNac"
+    }
+  ]
+}

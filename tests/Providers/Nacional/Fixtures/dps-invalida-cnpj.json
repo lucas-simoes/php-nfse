@@ -1,0 +1,69 @@
+{
+  "infDPS": {
+    "Id": "DPS1234000123202605230000000001",
+    "tpAmb": 2,
+    "dhEmi": "2026-05-23T10:00:00-03:00",
+    "verAplic": "1.00",
+    "dCompet": "2026-05",
+    "subst": null,
+    "emit": {
+      "CNPJ": "123456780",
+      "IM": "000123",
+      "CRT": 1,
+      "regTrib": {
+        "opSimpNac": 1,
+        "CNAE": "6201501",
+        "cLocEmi": "3550308"
+      }
+    },
+    "tomador": {
+      "CNPJ": "98765432000100",
+      "enderTomador": {
+        "xLgr": "Rua das Flores",
+        "nro": "123",
+        "xBairro": "Centro",
+        "cMun": "3550308",
+        "UF": "SP",
+        "CEP": "01310100",
+        "xPais": "BRASIL",
+        "cPais": "1058"
+      }
+    },
+    "serv": {
+      "cServ": {
+        "cTribNac": "010700",
+        "cTribMun": "12.03",
+        "CNAE": "6201501",
+        "xDescServ": "Desenvolvimento de sistemas de informação"
+      },
+      "loc": {
+        "cLocPrestacao": "3550308",
+        "cPaisPrestacao": "1058"
+      }
+    },
+    "valores": {
+      "vServPrest": {
+        "vReceb": "1000.00",
+        "vDesc": "0.00"
+      },
+      "pTotMaior": {
+        "vLiq": "1000.00",
+        "vCarga": "50.00",
+        "pCargaTrib": "0.0500"
+      },
+      "trib": {
+        "tribMun": {
+          "tribISSQN": 1,
+          "cLocIncid": "3550308",
+          "pAliq": "0.0500",
+          "tpRetBM": 1
+        },
+        "totTrib": {
+          "pTotTrib": "0.0500",
+          "vTotTrib": "50.00",
+          "indTotTrib": 1
+        }
+      }
+    }
+  }
+}

@@ -6,9 +6,9 @@ namespace NFePHP\NFSe\Providers\Nacional;
 
 use NFePHP\NFSe\Providers\Nacional\Interfaces\NacionalProviderInterface;
 use NFePHP\NFSe\Providers\Nacional\Models\Dps;
-use NFePHP\NFSe\Providers\Nacional\Responses\RespostaEmissao;
-use NFePHP\NFSe\Providers\Nacional\Responses\RespostaConsulta;
 use NFePHP\NFSe\Providers\Nacional\Responses\RespostaCancelamento;
+use NFePHP\NFSe\Providers\Nacional\Responses\RespostaConsulta;
+use NFePHP\NFSe\Providers\Nacional\Responses\RespostaEmissao;
 
 /**
  * Provedor Nacional NFS-e — ponto de entrada público da integração com o ADN.
@@ -16,31 +16,66 @@ use NFePHP\NFSe\Providers\Nacional\Responses\RespostaCancelamento;
  * Implementa NacionalProviderInterface usando NacionalClient (HTTP/mTLS)
  * e NacionalTransformer (DPS → JSON array).
  *
- * Os métodos emitir(), consultar() e cancelar() são esqueletos lançando
- * BadMethodCallException até as fases de implementação (US1, US2, US3).
+ * Uso:
+ *   $nacional = new Nacional($configuracao);
+ *   $resposta = $nacional->emitir($dps);
+ *
+ * Em testes, injete NacionalClient diretamente:
+ *   $nacional = new Nacional($configuracao, $clientMock);
  */
 class Nacional implements NacionalProviderInterface
 {
-    /** @phpstan-ignore-next-line property.onlyWritten (será lida em T023 — US1) */
     private NacionalClient      $client;
-    /** @phpstan-ignore-next-line property.onlyWritten (será lida em T022/T023 — US1) */
     private NacionalTransformer $transformer;
 
-    public function __construct(ConfiguracaoNacional $config)
+    /**
+     * @param NacionalClient|null $client Injeção opcional (produção usa NacionalClient::create)
+     */
+    public function __construct(ConfiguracaoNacional $config, ?NacionalClient $client = null)
     {
-        $this->client      = NacionalClient::create($config);
+        $this->client      = $client ?? NacionalClient::create($config);
         $this->transformer = new NacionalTransformer();
     }
 
     /**
      * Emite uma NFS-e pelo Padrão Nacional (ADN).
-     * Implementação completa será feita em T023 (US1).
      *
-     * @throws \BadMethodCallException até T023 ser implementado
+     * Fluxo:
+     * 1. Transforma Dps em array infDPS via NacionalTransformer
+     * 2. Envia POST /api/v1/nfse com o payload
+     * 3. Mapeia a resposta:
+     *    - Presença de chave 'nfse' → emissão síncrona (HTTP 201), status EMITIDA
+     *    - Presença de chave 'protocolo' sem 'nfse' → processamento assíncrono (HTTP 202), status ACEITA
+     *
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\ValidationException em caso de HTTP 400/422
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\AuthException em caso de HTTP 401/403
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\AdnException em caso de HTTP 500/503
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\TimeoutException em caso de timeout
      */
     public function emitir(Dps $dps): RespostaEmissao
     {
-        throw new \BadMethodCallException('not implemented');
+        $payload = $this->transformer->transform($dps);
+        $data    = $this->client->post('/api/v1/nfse', $payload);
+
+        // HTTP 201 — emissão síncrona: response contém objeto 'nfse' com chaveAcesso e numero
+        if (isset($data['nfse']) && is_array($data['nfse'])) {
+            return new RespostaEmissao(
+                protocolo:   $data['nfse']['protocolo'] ?? '',
+                status:      'EMITIDA',
+                chaveAcesso: $data['nfse']['chaveAcesso'] ?? null,
+                numeroNfse:  $data['nfse']['numero'] ?? null,
+                erros:       [],
+            );
+        }
+
+        // HTTP 202 — processamento assíncrono: response contém apenas 'protocolo' e 'mensagem'
+        return new RespostaEmissao(
+            protocolo:   (string) ($data['protocolo'] ?? ''),
+            status:      'ACEITA',
+            chaveAcesso: null,
+            numeroNfse:  null,
+            erros:       [],
+        );
     }
 
     /**

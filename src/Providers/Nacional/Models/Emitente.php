@@ -18,5 +18,10 @@ class Emitente
         public readonly int               $codigoRegimeTributario,
         public readonly RegimeTributario  $regimeTributario,
     ) {
+        if (!preg_match('/^\d{14}$/', $cnpj)) {
+            throw new \InvalidArgumentException(
+                "CNPJ do emitente inválido: '{$cnpj}'. Deve conter exatamente 14 dígitos numéricos."
+            );
+        }
     }
 }

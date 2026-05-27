@@ -10,7 +10,7 @@ namespace NFePHP\NFSe\Providers\Nacional\Models;
  */
 class Valores
 {
-    private function __construct(
+    public function __construct(
         public readonly ValorServico    $valorServicoPrestado,
         public readonly TotalMaior      $totalMaior,
         public readonly Tributacao      $tributacao,

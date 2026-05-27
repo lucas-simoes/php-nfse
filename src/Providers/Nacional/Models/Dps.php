@@ -12,7 +12,7 @@ namespace NFePHP\NFSe\Providers\Nacional\Models;
  */
 class Dps
 {
-    private function __construct(
+    public function __construct(
         public readonly string             $id,
         public readonly int                $ambiente,
         public readonly \DateTimeImmutable $dataEmissao,

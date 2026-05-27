@@ -36,9 +36,9 @@ class NacionalClient
     /**
      * Construtor principal — cria cliente Guzzle com mTLS via arquivos PEM temporários.
      */
-    public static function create(ConfiguracaoNacional $config): static
+    public static function create(ConfiguracaoNacional $config): self
     {
-        [$certPath, $keyPath] = static::extractPemFiles($config);
+        [$certPath, $keyPath] = self::extractPemFiles($config);
 
         $guzzle = new Client([
             'timeout'     => $config->getTimeout(),
@@ -50,7 +50,7 @@ class NacionalClient
             ],
         ]);
 
-        $instance             = new static($config, $guzzle);
+        $instance             = new self($config, $guzzle);
         $instance->tempFiles  = [$certPath, $keyPath];
 
         return $instance;
@@ -59,9 +59,9 @@ class NacionalClient
     /**
      * Factory para injeção de Guzzle customizado em testes (sem mTLS real).
      */
-    public static function withGuzzle(ConfiguracaoNacional $config, Client $guzzle): static
+    public static function withGuzzle(ConfiguracaoNacional $config, Client $guzzle): self
     {
-        return new static($config, $guzzle);
+        return new self($config, $guzzle);
     }
 
     /**

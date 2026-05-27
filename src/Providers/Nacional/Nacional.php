@@ -21,7 +21,9 @@ use NFePHP\NFSe\Providers\Nacional\Responses\RespostaCancelamento;
  */
 class Nacional implements NacionalProviderInterface
 {
+    /** @phpstan-ignore-next-line property.onlyWritten (será lida em T023 — US1) */
     private NacionalClient      $client;
+    /** @phpstan-ignore-next-line property.onlyWritten (será lida em T022/T023 — US1) */
     private NacionalTransformer $transformer;
 
     public function __construct(ConfiguracaoNacional $config)

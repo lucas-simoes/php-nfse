@@ -79,14 +79,30 @@ class Nacional implements NacionalProviderInterface
     }
 
     /**
-     * Consulta uma NFS-e pelo padrão nacional.
-     * Implementação completa será feita em T025 (US2).
+     * Consulta uma NFS-e pelo padrão nacional (ADN).
      *
-     * @throws \BadMethodCallException até T025 ser implementado
+     * Fluxo:
+     * 1. GET /api/v1/nfse/{chaveAcesso}
+     * 2. Mapeia HTTP 200 → RespostaConsulta com chaveAcesso, numeroNfse,
+     *    status, dataEmissao (DateTimeImmutable) e dpsOriginal (array)
+     * 3. HTTP 404 → NotFoundException propagada diretamente do NacionalClient
+     *
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\NotFoundException quando chave não existe
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\AuthException em caso de HTTP 401/403
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\AdnException em caso de HTTP 500/503
+     * @throws \NFePHP\NFSe\Providers\Nacional\Exceptions\TimeoutException em caso de timeout
      */
     public function consultar(string $chaveAcesso): RespostaConsulta
     {
-        throw new \BadMethodCallException('not implemented');
+        $data = $this->client->get('/api/v1/nfse/' . $chaveAcesso);
+
+        return new RespostaConsulta(
+            chaveAcesso:  $data['nfse']['chaveAcesso'],
+            numeroNfse:   $data['nfse']['numero'],
+            status:       $data['nfse']['status'],
+            dataEmissao:  new \DateTimeImmutable($data['nfse']['dataEmissao']),
+            dpsOriginal:  $data['nfse']['dps'],
+        );
     }
 
     /**

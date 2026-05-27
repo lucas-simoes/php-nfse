@@ -113,11 +113,11 @@ da emissão feita no mesmo test run.
 
 ### ⚠️ Testes para US2 — ESCREVER PRIMEIRO, CONFIRMAR QUE FALHAM
 
-- [ ] T024 [P] [US2] Criar `ConsultarTest.php` em `tests/Providers/Nacional/Unit/ConsultarTest.php`: usar PHPUnit mock de `NacionalClient` para que `get('/api/v1/nfse/35260512345678000195000123000000001000000001')` retorne o conteúdo de `response-consulta-200.json`; verificar que `Nacional::consultar($chave)` retorna `RespostaConsulta` com `$resultado->status === 'Ativa'`, `$resultado->chaveAcesso === '35260512345678000195000123000000001000000001'` e `$resultado->dataEmissao instanceof \DateTimeImmutable`; verificar que o teste FALHA antes da implementação
+- [x] T024 [P] [US2] Criar `ConsultarTest.php` em `tests/Providers/Nacional/Unit/ConsultarTest.php`: usar PHPUnit mock de `NacionalClient` para que `get('/api/v1/nfse/35260512345678000195000123000000001000000001')` retorne o conteúdo de `response-consulta-200.json`; verificar que `Nacional::consultar($chave)` retorna `RespostaConsulta` com `$resultado->status === 'Ativa'`, `$resultado->chaveAcesso === '35260512345678000195000123000000001000000001'` e `$resultado->dataEmissao instanceof \DateTimeImmutable`; verificar que o teste FALHA antes da implementação
 
 ### Implementação para User Story 2
 
-- [ ] T025 [US2] Implementar `Nacional::consultar(string $chaveAcesso): RespostaConsulta` em `src/Providers/Nacional/Nacional.php`: invocar `$this->client->get('/api/v1/nfse/' . $chaveAcesso)`, mapear resposta HTTP 200 → `new RespostaConsulta(chaveAcesso: $data['nfse']['chaveAcesso'], numeroNfse: $data['nfse']['numero'], status: $data['nfse']['status'], dataEmissao: new \DateTimeImmutable($data['nfse']['dataEmissao']), dpsOriginal: $data['nfse']['dps'])`, HTTP 404 → lançar `NotFoundException`
+- [x] T025 [US2] Implementar `Nacional::consultar(string $chaveAcesso): RespostaConsulta` em `src/Providers/Nacional/Nacional.php`: invocar `$this->client->get('/api/v1/nfse/' . $chaveAcesso)`, mapear resposta HTTP 200 → `new RespostaConsulta(chaveAcesso: $data['nfse']['chaveAcesso'], numeroNfse: $data['nfse']['numero'], status: $data['nfse']['status'], dataEmissao: new \DateTimeImmutable($data['nfse']['dataEmissao']), dpsOriginal: $data['nfse']['dps'])`, HTTP 404 → lançar `NotFoundException`
 
 **Checkpoint**: `vendor/bin/phpunit tests/Providers/Nacional/Unit/ConsultarTest.php` passa — US2 independentemente testável.
 

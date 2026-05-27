@@ -89,6 +89,35 @@ class DpsBuilder
 
     public function build(): Dps
     {
+        // Validação: id não pode estar vazio
+        if ($this->id === '') {
+            throw new \InvalidArgumentException(
+                'O campo id da DPS não pode estar vazio.'
+            );
+        }
+
+        // Validação: competencia deve ter formato YYYY-MM (4 dígitos, hífen, 2 dígitos)
+        if (!preg_match('/^\d{4}-\d{2}$/', $this->competencia)) {
+            throw new \InvalidArgumentException(
+                "Competencia inválida: '{$this->competencia}'. O formato obrigatório é YYYY-MM (ex: 2026-05)."
+            );
+        }
+
+        // Validação: dataEmissao >= primeiro dia da competência.
+        // Comparação feita no calendário local (YYYY-MM) para respeitar o fuso
+        // do emitente: um documento emitido em 2026-04-30 (horário local) não
+        // pode pertencer à competência 2026-05.
+        $dataEmissaoMes = $this->dataEmissao->format('Y-m');
+        if ($dataEmissaoMes < $this->competencia) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'dataEmissao (%s) não pode ser anterior ao mês da competência (%s).',
+                    $this->dataEmissao->format(\DateTimeInterface::ATOM),
+                    $this->competencia
+                )
+            );
+        }
+
         if ($this->emitente === null) {
             throw new \InvalidArgumentException('Emitente é obrigatório na DPS.');
         }

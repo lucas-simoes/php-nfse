@@ -1,13 +1,13 @@
 # Quickstart: Provedor Nacional NFS-e
 
 **Feature**: 001-provedor-nacional
-**Date**: 2026-05-23
+**Date**: 2026-05-27
 
 ---
 
 ## Pré-requisitos
 
-- PHP 7.4+ ou PHP 8.1+ (recomendado)
+- **PHP 8.1+** (obrigatório — constituição Technology Constraints)
 - Extensão `openssl` habilitada
 - Extensão `curl` habilitada com suporte a SSL/TLS
 - Composer instalado
@@ -44,14 +44,14 @@ Dependência principal adicionada automaticamente:
 
 require 'vendor/autoload.php';
 
-use NFSe\Nacional\Nacional;
-use NFSe\Nacional\ConfiguracaoNacional;
+use NFePHP\NFSe\Providers\Nacional\ConfiguracaoNacional;
+use NFePHP\NFSe\Providers\Nacional\Nacional;
 
 $config = new ConfiguracaoNacional(
-    certificadoP12: file_get_contents(__DIR__ . '/certs/empresa.pfx'),
+    certificadoP12:   file_get_contents(__DIR__ . '/certs/empresa.pfx'),
     senhaCertificado: getenv('CERT_PASSWORD'),
-    ambiente: ConfiguracaoNacional::HOMOLOGACAO, // trocar para PRODUCAO em produção
-    timeout: 30,
+    ambiente:         ConfiguracaoNacional::HOMOLOGACAO, // trocar para PRODUCAO em produção
+    timeout:          30,
 );
 
 $provider = new Nacional($config);
@@ -62,59 +62,58 @@ $provider = new Nacional($config);
 ```php
 <?php
 
-use NFSe\Nacional\Models\Dps;
-use NFSe\Nacional\Models\Emitente;
-use NFSe\Nacional\Models\RegimeTributario;
-use NFSe\Nacional\Models\Tomador;
-use NFSe\Nacional\Models\Endereco;
-use NFSe\Nacional\Models\Servico;
-use NFSe\Nacional\Models\CodigoServico;
-use NFSe\Nacional\Models\LocalPrestacao;
-use NFSe\Nacional\Models\Valores;
-use NFSe\Nacional\Models\ValorServico;
-use NFSe\Nacional\Models\TributacaoMunicipal;
+use NFePHP\NFSe\Providers\Nacional\ConfiguracaoNacional;
+use NFePHP\NFSe\Providers\Nacional\Models\CodigoServico;
+use NFePHP\NFSe\Providers\Nacional\Models\Dps;
+use NFePHP\NFSe\Providers\Nacional\Models\Emitente;
+use NFePHP\NFSe\Providers\Nacional\Models\Endereco;
+use NFePHP\NFSe\Providers\Nacional\Models\LocalPrestacao;
+use NFePHP\NFSe\Providers\Nacional\Models\RegimeTributario;
+use NFePHP\NFSe\Providers\Nacional\Models\Servico;
+use NFePHP\NFSe\Providers\Nacional\Models\Tomador;
+use NFePHP\NFSe\Providers\Nacional\Models\Valores;
 
 $emitente = new Emitente(
-    cnpj: '12345678000195',
-    inscricaoMunicipal: '000123',
+    cnpj:                   '12345678000195',
+    inscricaoMunicipal:     '000123',
     codigoRegimeTributario: 1, // Simples Nacional
     regimeTributario: new RegimeTributario(
         opcaoSimplesNacional: 1,
-        cnae: '6201501',
-        codigoLocalEmissao: '3550308', // IBGE São Paulo
+        cnae:                 '6201501',
+        codigoLocalEmissao:   '3550308', // IBGE São Paulo
     ),
 );
 
 $tomador = new Tomador(
-    cnpj: '98765432000100',
+    cnpj:     '98765432000100',
     endereco: new Endereco(
-        logradouro: 'Rua das Flores',
-        numero: '123',
-        bairro: 'Centro',
+        logradouro:      'Rua das Flores',
+        numero:          '123',
+        bairro:          'Centro',
         codigoMunicipio: '3550308',
-        uf: 'SP',
-        cep: '01310100',
-        nomePais: 'BRASIL',
-        codigoPais: '1058',
+        uf:              'SP',
+        cep:             '01310100',
+        nomePais:        'BRASIL',
+        codigoPais:      '1058',
     ),
 );
 
 $servico = new Servico(
     codigoServico: new CodigoServico(
-        codigoTributacaoNacional: '010700',
+        codigoTributacaoNacional:  '010700',
         codigoTributacaoMunicipal: '12.03',
-        cnae: '6201501',
-        descricaoServico: 'Desenvolvimento de sistemas de informação',
+        cnae:                      '6201501',
+        descricaoServico:          'Desenvolvimento de sistemas de informação',
     ),
     localPrestacao: new LocalPrestacao(
         codigoLocalPrestacao: '3550308',
-        codigoPais: '1058',
+        codigoPais:           '1058',
     ),
 );
 
 $valores = Valores::builder()
     ->valorRecebido('1000.00')
-    ->aliquotaIss('0.0500')            // ISS 5%
+    ->aliquotaIss('0.0500')         // ISS 5%
     ->localIncidenciaIss('3550308')
     ->build();
 
@@ -133,9 +132,9 @@ $dps = Dps::builder()
 ```php
 <?php
 
-use NFSe\Nacional\Exceptions\ValidationException;
-use NFSe\Nacional\Exceptions\AuthException;
-use NFSe\Nacional\Exceptions\NacionalException;
+use NFePHP\NFSe\Providers\Nacional\Exceptions\AuthException;
+use NFePHP\NFSe\Providers\Nacional\Exceptions\NacionalException;
+use NFePHP\NFSe\Providers\Nacional\Exceptions\ValidationException;
 
 try {
     $resposta = $provider->emitir($dps);
@@ -179,8 +178,8 @@ $chaveAcesso = '35260512345678000195000123000000001000000001';
 
 $nota = $provider->consultar($chaveAcesso);
 
-echo "Número: " . $nota->numeroNfse . PHP_EOL;
-echo "Status: " . $nota->status    . PHP_EOL;
+echo "Número:     " . $nota->numeroNfse                   . PHP_EOL;
+echo "Status:     " . $nota->status                       . PHP_EOL;
 echo "Emitida em: " . $nota->dataEmissao->format('d/m/Y H:i') . PHP_EOL;
 ```
 
@@ -192,14 +191,14 @@ echo "Emitida em: " . $nota->dataEmissao->format('d/m/Y H:i') . PHP_EOL;
 <?php
 
 $resposta = $provider->cancelar(
-    chaveAcesso: '35260512345678000195000123000000001000000001',
-    codigoMotivo: '1', // 1=Erro na emissão
+    chaveAcesso:  '35260512345678000195000123000000001000000001',
+    codigoMotivo: '1', // 1=Erro na emissão, 2=Serviço não prestado, 3=Duplicidade, 4=Erro de tributação
 );
 
 if ($resposta->foiAceito()) {
     echo "Cancelamento aceito. Protocolo: " . $resposta->protocolo . PHP_EOL;
 } else {
-    echo "Cancelamento rejeitado." . PHP_EOL;
+    echo "Cancelamento rejeitado. Status: " . $resposta->status . PHP_EOL;
 }
 ```
 
@@ -209,9 +208,9 @@ if ($resposta->foiAceito()) {
 
 ```php
 $config = new ConfiguracaoNacional(
-    certificadoP12: file_get_contents('/secure/cert.pfx'),
+    certificadoP12:   file_get_contents('/secure/cert.pfx'),
     senhaCertificado: getenv('CERT_PASSWORD'),
-    ambiente: ConfiguracaoNacional::PRODUCAO, // ← único change necessário
+    ambiente:         ConfiguracaoNacional::PRODUCAO, // ← único change necessário
 );
 ```
 
@@ -220,14 +219,20 @@ $config = new ConfiguracaoNacional(
 ## Validação de saúde antes de produção
 
 ```bash
-# Executar suite de testes de integração contra homologação
-php vendor/bin/phpunit tests/Integration/ --group=nacional
+# Executar suite completa de testes unitários
+vendor/bin/phpunit tests/Providers/Nacional/Unit/
 
-# Validar schema DPS contra JSON Schema oficial
-php vendor/bin/phpunit tests/Unit/NacionalTransformerTest.php
+# Executar testes de integração contra homologação
+# (requer CERT_PATH, CERT_PASSWORD e opcionalmente CHAVE_ACESSO_TESTE)
+CERT_PATH=/caminho/cert.pfx CERT_PASSWORD=senha \
+  vendor/bin/phpunit --group=nacional-integration \
+    tests/Providers/Nacional/Integration/NacionalProviderIntegrationTest.php
 
-# Análise estática
-php vendor/bin/phpstan analyse src/Providers/Nacional/ --level=8
+# Validar transformer DPS contra schema esperado
+vendor/bin/phpunit tests/Providers/Nacional/Unit/NacionalTransformerTest.php
+
+# Análise estática (gate obrigatório antes de merge)
+vendor/bin/phpstan analyse src/Providers/Nacional/ --level=8
 ```
 
 ---

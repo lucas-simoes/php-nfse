@@ -18,8 +18,8 @@ use NFePHP\NFSe\Providers\Nacional\Models\TotalMaior;
 use NFePHP\NFSe\Providers\Nacional\Models\TotalTributos;
 use NFePHP\NFSe\Providers\Nacional\Models\Tributacao;
 use NFePHP\NFSe\Providers\Nacional\Models\TributacaoMunicipal;
-use NFePHP\NFSe\Providers\Nacional\Models\ValorServico;
 use NFePHP\NFSe\Providers\Nacional\Models\Valores;
+use NFePHP\NFSe\Providers\Nacional\Models\ValorServico;
 use PHPUnit\Framework\TestCase;
 
 /**

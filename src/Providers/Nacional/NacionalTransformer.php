@@ -7,8 +7,8 @@ namespace NFePHP\NFSe\Providers\Nacional;
 use NFePHP\NFSe\Providers\Nacional\Interfaces\NacionalTransformerInterface;
 use NFePHP\NFSe\Providers\Nacional\Models\Dps;
 use NFePHP\NFSe\Providers\Nacional\Models\Emitente;
-use NFePHP\NFSe\Providers\Nacional\Models\Tomador;
 use NFePHP\NFSe\Providers\Nacional\Models\Servico;
+use NFePHP\NFSe\Providers\Nacional\Models\Tomador;
 use NFePHP\NFSe\Providers\Nacional\Models\Valores;
 
 /**

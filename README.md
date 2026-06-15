@@ -1,7 +1,7 @@
 # php-nfse
 **Framework para a integração com os sistemas de Notas Fiscais Eletrônicas de Serviços das Prefeituras Municipais**
 
-*php-nfse* é um framework para geração dos RPS e comunicação das NFSe com as Prefeituras Municipais.
+*php-nfse* é um framework para geração dos RPS e comunicação das NFSe com as Prefeituras Municipais, com suporte ao **Padrão Nacional NFS-e (ADN)** — a nova API REST/JSON centralizada do governo federal.
 
 *Este projeto é um fork do projeto original nfephp-org/sped-nfse <https://github.com/nfephp-org/sped-nfse> que foi descontinuado.*
 
@@ -11,7 +11,7 @@
 
 ### Isso torna esse pacote IMENSAMENTE COMPLEXO, se comparado a outros similares.
 
->### Outro detalhe muito importante que afeta pricipalmente o SEU APLICATIVO, que fará uso desse pacote, são os procedimentos diferenciados de cada Prefeitura em relação ao padrão adotado, como:
+>### Outro detalhe muito importante que afeta principalmente o SEU APLICATIVO, que fará uso desse pacote, são os procedimentos diferenciados de cada Prefeitura em relação ao padrão adotado, como:
 - campos diferentes (tamanho e estrutura)
 - operações não existentes, ou com funcionamento diferente
 - critérios de aceitabilidade dos dados diversos do padrão
@@ -19,7 +19,7 @@
 
 >***Pois bem, isso significa que o SEU aplicativo deverá lidar com cada uma dessas particularidades municipio por municipio, e não apenas modelo a modelo.***
 
-Não existe nenhum padrão nacional na definição dos WebServices, e os municipios podem alterar o layout do XML ou o provedor sem qualquer critério e isto pode causar sérios problemas de acesso e validação, pois podemos não ter condições de adequação desse framework, seja devido a alterações técnicas, seja pela imposição de prazos.
+Não existe nenhum padrão nacional na definição dos WebServices municipais, e os municipios podem alterar o layout do XML ou o provedor sem qualquer critério e isto pode causar sérios problemas de acesso e validação, pois podemos não ter condições de adequação desse framework, seja devido a alterações técnicas, seja pela imposição de prazos.
 
 Os usuários desse framework devem avaliar quais os riscos e quais são as responsabilidades que está assumindo ao oferecer o produto ao usuário final, que pode **PARAR DE FUNCIONAR A QUALQUER MOMENTO**, pois como dito anteriormente:
 
@@ -44,11 +44,82 @@ Com a Nota Fiscal Eletrônica de Serviços você terá os seguintes benefícios:
 
 A emissão de NFSe depende de prévio cadastramento do emissor e da disponibilidade de certificado digital do tipo A1 (PKCS#12), emitido por certificadora no Brasil pertencente ao ICP-Brasil.
 
-## PACOTE EM DESENVOLVIMENTO, não usável ainda !!
+## Requisitos
 
-## Padrões
+- **PHP 8.1+** (obrigatório)
+- Extensões PHP: `openssl`, `curl`, `soap`
+- Certificado digital A1 (PKCS#12 / `.pfx`) ICP-Brasil
 
-Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada prefeitura pode fazer alterações no "padrão" escolhido, por isso, cada Prefeitura autorizadora deverá ser claramente identificada para que os códigos corretos sejam utilizados nas chamadas do framework. Isso eleva muito a complexidade desta API, e consequentemente sua manutenção.
+## Padrão Nacional NFS-e (ADN) — EM DESENVOLVIMENTO
+
+A partir de 2026, o governo federal introduziu o **Padrão Nacional NFS-e** gerido pelo **ADN (Ambiente de Dados Nacional)**. Este framework evolui para suportar essa nova API REST/JSON centralizada em coexistência com os sistemas municipais legados (SOAP/XML).
+
+### O que é o Padrão Nacional?
+
+| Dimensão | Legado Municipal | Padrão Nacional |
+|---|---|---|
+| Protocolo | SOAP 1.1 / 1.2 | REST/JSON (HTTPS) |
+| Autenticação | Assinatura XML-DSig | mTLS (certificado no canal TLS) |
+| Documento | RPS (XML, schema municipal) | DPS — Declaração de Prestação de Serviço (JSON) |
+| Endpoint | Webservice municipal (por cidade) | API federal centralizada |
+| Ambiente | Por município | `www.nfse.gov.br` / `hom.nfse.gov.br` |
+
+### Uso do Provider Nacional
+
+```php
+use NFePHP\NFSe\Providers\Nacional\Nacional;
+use NFePHP\NFSe\Providers\Nacional\ConfiguracaoNacional;
+use NFePHP\NFSe\Providers\Nacional\Models\DpsBuilder;
+
+// Configuração — lê o P12 e define o ambiente
+$config = new ConfiguracaoNacional(
+    certificadoP12: file_get_contents('/path/to/certificado.pfx'),
+    senhaCertificado: 'senha_do_certificado',
+    ambiente: ConfiguracaoNacional::HOMOLOGACAO, // ou PRODUCAO
+);
+
+$provider = new Nacional($config);
+
+// Construir o DPS (Declaração de Prestação de Serviço)
+$dps = DpsBuilder::novo()
+    ->emitente(cnpj: '12345678000195', im: '12345')
+    ->tomador(cnpjCpf: '98765432000100', razaoSocial: 'Empresa Tomadora')
+    ->servico(codigoServico: '0101', discriminacao: 'Serviço de consultoria')
+    ->valores(valorServico: 100.00, aliquota: 0.05)
+    ->build();
+
+// Emitir
+$resposta = $provider->emitir($dps);
+echo $resposta->chaveAcesso;  // chave da NFS-e emitida
+
+// Consultar
+$nota = $provider->consultar($resposta->chaveAcesso);
+
+// Cancelar
+$confirmacao = $provider->cancelar($resposta->chaveAcesso, codigoMotivo: '2');
+```
+
+### Integração via Factory (compatível com provedores municipais)
+
+```php
+use NFePHP\NFSe\NFSe;
+
+// Usar cmun = '0000000' para acionar o Padrão Nacional automaticamente
+$config = json_encode([
+    'cmun'           => '0000000',
+    'razaosocial'    => 'Minha Empresa Ltda',
+    'cnpj'           => '12345678000195',
+    'tpAmb'          => 2, // 1=Producao, 2=Homologacao
+    'padraoNacional' => true,
+]);
+
+$nfse = new NFSe($config, $certificate);
+$tools = $nfse->tools; // retorna instância de Nacional automaticamente
+```
+
+Consulte o guia completo em [`specs/001-provedor-nacional/quickstart.md`](specs/001-provedor-nacional/quickstart.md).
+
+## Padrões municipais suportados
 
 - Ábaco
 - ABRASF
@@ -125,6 +196,7 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - **Nota Carioca (derivação ABRASF) - em desenvolvimento**
 - Nota Natalense
 - **Nota Salvador (derivação ABRASF) - em desenvolvimento**
+- **Padrão Nacional NFS-e (ADN) - EM DESENVOLVIMENTO**
 - PMJP
 - PortalFacil
 - Prescon
@@ -159,6 +231,9 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 - WEBISS
 
 ## Municipios atendidos pelo Framework
+
+### Padrão Nacional NFS-e (ADN) — EM DESENVOLVIMENTO
+Todos os municípios aderentes ao padrão federal. Não há lista por cidade — o provider se comunica com a API centralizada do governo federal (`nfse.gov.br`). Use `cmun = '0000000'` ou `padraoNacional = true` na configuração.
 
 ### ABRASF (BETA-TESTS) 
 - Salvador (BA) ABRASF (modificado)
@@ -265,15 +340,15 @@ Existem muitos "padrões" diferentes para a emissão de NFSe, além disso, cada 
 ### Simpliss Em desenvolvimento
 - São Joao da Boa Vista (SP)
 
-## Install
+## Instalação
 
 Via Composer
 
-*Biblioteca em desenvolvimento*
-
 ``` bash
-$ composer require lucas-simoes/php-nfse:dev-master
+composer require lucas-simoes/php-nfse
 ```
+
+> **Nota:** PHP 8.1+ é obrigatório. O requisito mínimo foi atualizado para suportar os recursos de linguagem necessários ao provider do Padrão Nacional.
 
 ## Security
 

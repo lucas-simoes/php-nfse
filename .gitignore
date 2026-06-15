@@ -16,3 +16,8 @@ Thumbs.db
 .idea/
 .vscode/
 tree.txt
+
+# Spec Kit — local planning artifacts (not versioned)
+.specify/
+specs/
+.claude/skills/speckit-*/
